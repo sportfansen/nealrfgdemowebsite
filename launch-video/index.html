@@ -1,0 +1,717 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Supabase — Launch Film</title>
+<style>
+@font-face{font-family:Inter;src:url(assets/fonts/inter-latin-wght-normal.woff2) format('woff2');font-weight:100 900}
+@font-face{font-family:JBM;src:url(assets/fonts/jetbrains-mono-latin-400-normal.woff2) format('woff2');font-weight:400}
+@font-face{font-family:JBM;src:url(assets/fonts/jetbrains-mono-latin-500-normal.woff2) format('woff2');font-weight:500}
+@font-face{font-family:JBM;src:url(assets/fonts/jetbrains-mono-latin-700-normal.woff2) format('woff2');font-weight:700}
+:root{
+  --bg:#0c0c0c; --green:#3ECF8E; --green-d:#249361; --fg:#ededed; --muted:#8f8f8f;
+  --panel:#171717; --line:#2a2a2a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#000;overflow:hidden}
+body{display:flex;align-items:center;justify-content:center;width:100vw;height:100vh}
+#stage{position:relative;width:1920px;height:1080px;overflow:hidden;background:var(--bg);
+  font-family:Inter,system-ui,sans-serif;color:var(--fg);transform-origin:center;flex:none;
+  -webkit-font-smoothing:antialiased}
+.abs{position:absolute}
+.full{position:absolute;inset:0}
+.scene{position:absolute;inset:0;display:none}
+.center{display:flex;align-items:center;justify-content:center;flex-direction:column}
+
+/* ---------- background ---------- */
+#bg .orb{position:absolute;border-radius:50%}
+#grid{position:absolute;inset:-200px;
+  background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
+  background-size:96px 96px;
+  -webkit-mask-image:radial-gradient(ellipse 60% 55% at 50% 50%,#000 20%,transparent 75%);
+          mask-image:radial-gradient(ellipse 60% 55% at 50% 50%,#000 20%,transparent 75%)}
+#grain{position:absolute;inset:0;pointer-events:none;opacity:.07;mix-blend-mode:overlay;z-index:50}
+#vignette{position:absolute;inset:0;pointer-events:none;z-index:49;
+  background:radial-gradient(ellipse 80% 75% at 50% 50%,transparent 55%,rgba(0,0,0,.65) 100%)}
+#flash{position:absolute;inset:0;pointer-events:none;z-index:48;background:#fff;opacity:0;mix-blend-mode:screen}
+#letterbox{position:absolute;inset:0;pointer-events:none;z-index:60;opacity:0;background:#000}
+
+/* ---------- type ---------- */
+.h{font-weight:680;letter-spacing:-.045em;line-height:1.02;white-space:nowrap}
+.h .w{display:inline-block;will-change:transform,opacity,filter;padding:0 .02em}
+.h .g{color:var(--green)}
+em{font-style:normal;color:var(--green)}
+.eyebrow{font-family:JBM;font-weight:500;font-size:22px;letter-spacing:.18em;color:var(--green);text-transform:uppercase;
+  display:flex;align-items:center;gap:14px}
+.eyebrow i{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 18px var(--green)}
+.sub{font-size:34px;color:var(--muted);font-weight:450;letter-spacing:-.015em}
+
+/* ---------- browser chrome ---------- */
+.browser{position:absolute;border-radius:18px;overflow:hidden;background:#111;
+  box-shadow:0 0 0 1px rgba(255,255,255,.09),0 40px 120px rgba(0,0,0,.7),0 0 160px rgba(62,207,142,.10)}
+.browser .bar{height:46px;background:#1b1b1b;border-bottom:1px solid #262626;display:flex;align-items:center;padding:0 18px;gap:9px}
+.browser .dot{width:13px;height:13px;border-radius:50%;background:#3a3a3a}
+.browser .dot:nth-child(1){background:#ff5f57}.browser .dot:nth-child(2){background:#febc2e}.browser .dot:nth-child(3){background:#28c840}
+.browser .url{margin:0 auto;height:28px;width:420px;border-radius:8px;background:#262626;color:#9a9a9a;font-size:15px;
+  display:flex;align-items:center;justify-content:center;gap:8px;transform:translateX(-30px)}
+.browser .view{position:relative;overflow:hidden}
+.browser .view img{position:absolute;left:0;top:0;transform-origin:0 0;display:block}
+
+/* ---------- misc components ---------- */
+.chip{position:absolute;display:flex;align-items:center;gap:14px;padding:18px 26px;border-radius:999px;
+  background:rgba(23,23,23,.82);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(12px);
+  font-size:28px;font-weight:560;letter-spacing:-.01em;box-shadow:0 20px 60px rgba(0,0,0,.5);white-space:nowrap}
+.chip b{width:12px;height:12px;border-radius:50%;background:var(--green);box-shadow:0 0 14px var(--green)}
+.card{position:absolute;border-radius:22px;background:rgba(20,20,20,.92);border:1px solid rgba(255,255,255,.1);
+  box-shadow:0 30px 90px rgba(0,0,0,.6)}
+.mono{font-family:JBM}
+.code{font-family:JBM;font-size:31px;line-height:1.62;white-space:pre;color:#e6e6e6}
+.tk-k{color:#bf8bff}.tk-s{color:#3ECF8E}.tk-f{color:#7cc4ff}.tk-p{color:#8f8f8f}.tk-v{color:#ffd28a}.tk-c{color:#5f5f5f}
+.caret{display:inline-block;width:3px;height:1.05em;background:var(--green);vertical-align:-0.15em;margin-left:2px}
+.tile{position:absolute;width:190px;height:150px;border-radius:24px;background:linear-gradient(180deg,#191919,#121212);
+  border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px}
+.tile img{width:64px;height:64px;object-fit:contain;filter:brightness(0) invert(1);opacity:.88}
+.tile span{font-size:18px;color:#8a8a8a;font-weight:500}
+.prov{position:absolute;width:104px;height:104px;border-radius:28px;background:#161616;border:1px solid rgba(255,255,255,.1);
+  display:flex;align-items:center;justify-content:center;box-shadow:0 20px 50px rgba(0,0,0,.55)}
+.prov img{width:50px;height:50px;object-fit:contain}
+.btn{position:absolute;display:flex;align-items:center;justify-content:center;gap:14px;height:92px;padding:0 46px;border-radius:18px;
+  background:var(--green);color:#0b2a1c;font-size:36px;font-weight:650;letter-spacing:-.02em;
+  box-shadow:0 0 0 1px rgba(255,255,255,.25) inset,0 20px 70px rgba(62,207,142,.45)}
+.btn.ghost{background:#1e1e1e;color:var(--fg);box-shadow:0 0 0 1px rgba(255,255,255,.15) inset}
+.label{position:absolute;left:96px;bottom:92px;display:flex;align-items:flex-end;gap:26px}
+.label .n{font-family:JBM;font-size:24px;color:var(--green);letter-spacing:.1em;padding-bottom:18px}
+.label .t{font-size:118px;font-weight:720;letter-spacing:-.05em;line-height:1;color:#fff;text-shadow:0 10px 60px rgba(0,0,0,.6)}
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <!-- ================= BACKGROUND ================= -->
+  <div id="bg" class="full">
+    <div class="orb" id="orb1" style="width:1300px;height:1300px;margin:-200px;background:radial-gradient(closest-side,rgba(62,207,142,.2),rgba(62,207,142,.07) 55%,transparent)"></div>
+    <div class="orb" id="orb2" style="width:1160px;height:1160px;margin:-200px;background:radial-gradient(closest-side,rgba(36,147,97,.22),rgba(36,147,97,.07) 55%,transparent)"></div>
+    <div class="orb" id="orb3" style="width:1000px;height:1000px;margin:-200px;background:radial-gradient(closest-side,rgba(80,120,255,.07),transparent)"></div>
+    <div id="grid"></div>
+  </div>
+
+  <!-- ================= S1 HOOK ================= -->
+  <div class="scene center" id="s1">
+    <div class="h abs" id="s1a" style="font-size:150px">You have an idea.</div>
+    <div class="h abs" id="s1b" style="font-size:150px">Ship it <em>this weekend.</em></div>
+    <div class="abs" id="s1bar" style="height:10px;border-radius:6px;background:var(--green);box-shadow:0 0 30px var(--green)"></div>
+  </div>
+
+  <!-- ================= S2 LOGO ================= -->
+  <div class="scene" id="s2">
+    <div class="abs" id="ring" style="left:960px;top:540px;width:10px;height:10px;border-radius:50%;border:3px solid var(--green)"></div>
+    <div class="abs" id="lock" style="left:574px;top:390px;width:772px;height:150px">
+      <img id="wordtype" src="assets/logos/supabase-wordtype.svg" class="abs" style="left:0;top:0;width:772px;height:150px">
+      <div class="abs" id="iconwrap" style="left:0;top:0;width:145px;height:150px">
+        <svg id="icoA" class="abs" style="left:0;top:0;overflow:visible" width="145" height="150" viewBox="0 0 109 113"><path d="M45.317 2.07103C48.1765 -1.53037 53.9745 0.442937 54.0434 5.041L54.4849 72.2922H9.83113C1.64038 72.2922 -2.92775 62.8321 2.1655 56.4175L45.317 2.07103Z" fill="#3ECF8E"/></svg>
+        <svg id="icoB" class="abs" style="left:0;top:0;overflow:visible" width="145" height="150" viewBox="0 0 109 113">
+          <defs>
+            <linearGradient id="pg0" x1="53.9738" y1="54.974" x2="94.1635" y2="71.8295" gradientUnits="userSpaceOnUse"><stop stop-color="#249361"/><stop offset="1" stop-color="#3ECF8E"/></linearGradient>
+            <linearGradient id="pg1" x1="36.1558" y1="30.578" x2="54.4844" y2="65.0806" gradientUnits="userSpaceOnUse"><stop/><stop offset="1" stop-opacity="0"/></linearGradient>
+          </defs>
+          <path d="M63.7076 110.284C60.8481 113.885 55.0502 111.912 54.9813 107.314L53.9738 40.0627L99.1935 40.0627C107.384 40.0627 111.952 49.5228 106.859 55.9374L63.7076 110.284Z" fill="url(#pg0)"/>
+          <path d="M63.7076 110.284C60.8481 113.885 55.0502 111.912 54.9813 107.314L53.9738 40.0627L99.1935 40.0627C107.384 40.0627 111.952 49.5228 106.859 55.9374L63.7076 110.284Z" fill="url(#pg1)" fill-opacity="0.2"/>
+        </svg>
+      </div>
+    </div>
+    <div class="sub abs h" id="s2tag" style="left:0;right:0;top:600px;text-align:center;font-size:46px;font-weight:500;letter-spacing:-.025em;color:#a3a3a3">The <em>Postgres</em> development platform.</div>
+  </div>
+
+  <!-- ================= S3 DATABASE ================= -->
+  <div class="scene" id="s3" style="perspective:2200px">
+    <div class="abs" id="s3head" style="left:0;right:0;top:92px;display:flex;flex-direction:column;align-items:center;gap:26px">
+      <div class="eyebrow" id="s3eb"><i></i>01 &nbsp;Database</div>
+      <div class="h" id="s3h" style="font-size:92px">A full <em>Postgres</em> database.</div>
+    </div>
+    <div class="browser" id="s3b" style="left:190px;top:330px;width:1540px">
+      <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><div class="url">🔒&nbsp; supabase.com/dashboard</div></div>
+      <div class="view" style="height:867px"><img id="s3img" src="assets/img/supabase-table-editor.png" style="width:1540px"></div>
+      <div class="abs" id="s3hl" style="border:3px solid var(--green);border-radius:10px;box-shadow:0 0 0 9999px rgba(0,0,0,.45),0 0 40px rgba(62,207,142,.6)"></div>
+    </div>
+    <div class="chip" id="s3c1" style="left:250px;top:420px"><b></b>Spreadsheet-simple editing</div>
+    <div class="chip" id="s3c2" style="left:190px;top:530px"><b></b>Relationships &amp; joins</div>
+    <div class="chip" id="s3c3" style="left:230px;top:640px"><b></b>Row Level Security</div>
+  </div>
+
+  <!-- ================= S4 SQL + AI ================= -->
+  <div class="scene" id="s4" style="perspective:2400px">
+    <div class="abs" id="s4head" style="left:110px;top:150px;display:flex;flex-direction:column;gap:30px;z-index:3">
+      <div class="eyebrow"><i></i>02 &nbsp;SQL Editor + AI</div>
+      <div class="h" id="s4h" style="font-size:96px">Write SQL.</div>
+      <div class="h" id="s4h2" style="font-size:96px">Or <em>just ask.</em></div>
+    </div>
+    <div class="browser" id="s4b" style="left:740px;top:207px;width:1100px">
+      <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><div class="url">🔒&nbsp; supabase.com/dashboard</div></div>
+      <div class="view" style="height:620px"><img id="s4img" src="assets/img/supabase-sql-editor.png" style="width:1100px"></div>
+    </div>
+    <div class="card" id="s4prompt" style="left:110px;top:560px;width:720px;padding:30px 34px;z-index:4">
+      <div style="display:flex;align-items:center;gap:14px;font-size:22px;color:#9a9a9a;margin-bottom:18px">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4z" fill="#3ECF8E"/></svg>Supabase AI Assistant</div>
+      <div id="s4type" style="font-size:32px;line-height:1.3;font-weight:520;letter-spacing:-.015em;min-height:48px"></div>
+      <div id="s4sql" class="code" style="font-size:26px;margin-top:22px;padding:20px 24px;border-radius:14px;background:#0e0e0e;border:1px solid #262626;line-height:1.55"></div>
+    </div>
+  </div>
+
+  <!-- ================= S5 AUTH ================= -->
+  <div class="scene" id="s5">
+    <div class="abs" style="left:120px;top:300px;display:flex;flex-direction:column;gap:30px;z-index:3">
+      <div class="eyebrow" id="s5eb"><i></i>03 &nbsp;Auth</div>
+      <div class="h" id="s5h" style="font-size:104px">Auth that</div>
+      <div class="h" id="s5h2" style="font-size:104px"><em>just works.</em></div>
+      <div class="sub" id="s5s" style="margin-top:10px;max-width:700px;white-space:normal;line-height:1.35">Email, magic links, phone and social logins with every user in your own Postgres.</div>
+    </div>
+    <div class="abs" id="s5img" style="left:1000px;top:225px;width:780px;height:611px;border-radius:26px;overflow:hidden;
+      box-shadow:0 0 0 1px rgba(255,255,255,.1),0 50px 140px rgba(0,0,0,.7),0 0 200px rgba(62,207,142,.18)">
+      <img src="assets/img/auth-header.png" style="width:100%;height:100%;object-fit:cover">
+    </div>
+    <div id="s5provs"></div>
+  </div>
+
+  <!-- ================= S6 MONTAGE ================= -->
+  <div class="scene" id="s6"></div>
+
+  <!-- ================= S7 CODE ================= -->
+  <div class="scene" id="s7">
+    <div class="abs" style="left:0;right:0;top:92px;display:flex;flex-direction:column;align-items:center;gap:26px">
+      <div class="eyebrow" id="s7eb"><i></i>One client library</div>
+      <div class="h" id="s7h" style="font-size:92px">One client. <em>Every feature.</em></div>
+    </div>
+    <div class="card" id="s7ed" style="left:150px;top:330px;width:1080px;height:560px;overflow:hidden">
+      <div style="height:54px;border-bottom:1px solid #262626;display:flex;align-items:center;gap:9px;padding:0 22px">
+        <span style="width:13px;height:13px;border-radius:50%;background:#ff5f57"></span><span style="width:13px;height:13px;border-radius:50%;background:#febc2e"></span><span style="width:13px;height:13px;border-radius:50%;background:#28c840"></span>
+        <span class="mono" style="margin-left:22px;font-size:19px;color:#8a8a8a">app.ts</span></div>
+      <div style="display:flex;padding:30px 0 0 0">
+        <div class="code" id="s7ln" style="width:84px;text-align:right;padding-right:28px;color:#444"></div>
+        <div class="code" id="s7code"></div>
+      </div>
+    </div>
+    <div class="card" id="s7res" style="left:1150px;top:470px;width:640px;padding:28px 32px 30px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px">
+        <span class="mono" style="font-size:20px;color:#8a8a8a">response · 200 OK</span>
+        <span class="mono" style="font-size:20px;color:var(--green)">38ms</span></div>
+      <div id="s7rows"></div>
+    </div>
+  </div>
+
+  <!-- ================= S8 FRAMEWORKS ================= -->
+  <div class="scene" id="s8" style="perspective:2000px">
+    <div class="abs" style="left:0;right:0;top:86px;display:flex;flex-direction:column;align-items:center;gap:22px;z-index:3">
+      <div class="eyebrow" id="s8eb"><i></i>Integrations</div>
+      <div class="h" id="s8h" style="font-size:92px">Works with <em>your stack.</em></div>
+    </div>
+    <div class="abs" id="s8grid" style="left:0;top:0;width:1920px;height:1080px;transform-style:preserve-3d"></div>
+  </div>
+
+  <!-- ================= S9 BENEFITS ================= -->
+  <div class="scene center" id="s9">
+    <div class="h abs" id="s9a" style="font-size:180px">Open source.</div>
+    <div class="h abs" id="s9b" style="font-size:180px">No lock-in.</div>
+    <div class="h abs" id="s9c" style="font-size:180px"><em>Scales to millions.</em></div>
+  </div>
+
+  <!-- ================= S10 OUTRO ================= -->
+  <div class="scene" id="s10">
+    <div class="abs" id="s10glow" style="left:260px;top:-160px;width:1400px;height:1100px;background:radial-gradient(ellipse 50% 45% at 50% 50%,rgba(62,207,142,.30),rgba(62,207,142,.08) 55%,transparent 75%)"></div>
+    <div class="abs" id="s10lock" style="left:614px;top:250px;width:692px;height:135px">
+      <img src="assets/logos/supabase-logo-wordmark--dark.svg" style="width:100%;height:100%">
+    </div>
+    <div class="h abs" id="s10tag" style="left:0;right:0;top:450px;text-align:center;font-size:74px">Build in a weekend. <em>Scale to millions.</em></div>
+    <div class="btn" id="s10btn" style="left:604px;top:640px;width:420px">Start your project</div>
+    <div class="btn ghost" id="s10btn2" style="left:1050px;top:640px;width:266px">Docs</div>
+    <div class="abs mono" id="s10url" style="left:0;right:0;top:810px;text-align:center;font-size:34px;color:#9a9a9a;letter-spacing:.04em">supabase.com</div>
+    <div class="abs" id="s10ripple" style="width:40px;height:40px;border-radius:50%;border:4px solid #fff"></div>
+    <svg id="s10cur" class="abs" width="54" height="54" viewBox="0 0 22 22" style="filter:drop-shadow(0 6px 14px rgba(0,0,0,.6))"><path fill="#fff" stroke="#111" stroke-width="1" d="M7.87 20.985.4 1.36C.217.881.662.408 1.125.577l19.616 7.1c.5.182.52.904.03 1.113l-7.65 3.26a1 1 0 0 0-.53.54l-3.36 8.07c-.2.49-.9.47-1.08-.02z"/></svg>
+  </div>
+
+  <div id="flash"></div>
+  <div id="vignette"></div>
+  <div id="grain"></div>
+  <div id="letterbox"></div>
+</div>
+
+<script>
+/* =====================================================================
+   Deterministic timeline engine: every frame is a pure function of t.
+   window.seek(t) is called by the renderer; in a normal browser the page
+   plays itself in real time (click to start with sound).
+   ===================================================================== */
+const DURATION = 48;
+const $ = id => document.getElementById(id);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const lerp = (a, b, p) => a + (b - a) * p;
+const E = {
+  lin: p => p,
+  outCubic: p => 1 - Math.pow(1 - p, 3),
+  inCubic: p => p * p * p,
+  inOutCubic: p => p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2,
+  outQuint: p => 1 - Math.pow(1 - p, 5),
+  inQuint: p => p ** 5,
+  outExpo: p => p >= 1 ? 1 : 1 - Math.pow(2, -10 * p),
+  inExpo: p => p <= 0 ? 0 : Math.pow(2, 10 * p - 10),
+  inOutExpo: p => p <= 0 ? 0 : p >= 1 ? 1 : p < .5 ? Math.pow(2, 20 * p - 10) / 2 : (2 - Math.pow(2, -20 * p + 10)) / 2,
+  outBack: p => { const c1 = 1.9, c3 = c1 + 1; return 1 + c3 * Math.pow(p - 1, 3) + c1 * Math.pow(p - 1, 2); },
+};
+const P = (t, a, b, e = E.outExpo) => e(clamp((t - a) / (b - a)));
+
+/* style helper: x,y,z (px), s scale, r rotate, rx/ry 3D, o opacity, b blur */
+function S(el, o) {
+  let tr = '';
+  if (o.x || o.y || o.z) tr += `translate3d(${o.x || 0}px,${o.y || 0}px,${o.z || 0}px) `;
+  if (o.rx) tr += `rotateX(${o.rx}deg) `;
+  if (o.ry) tr += `rotateY(${o.ry}deg) `;
+  if (o.r) tr += `rotate(${o.r}deg) `;
+  if (o.s !== undefined && o.s !== 1) tr += `scale(${o.s}) `;
+  el.style.transform = tr;
+  if (o.o !== undefined) el.style.opacity = o.o;
+  el.style.filter = o.b > 0.05 ? `blur(${o.b}px)` : '';
+}
+
+/* split .h text into word spans; <em> children become green words */
+function split(el) {
+  const out = [];
+  const nodes = [...el.childNodes];
+  el.innerHTML = '';
+  nodes.forEach(n => {
+    const green = n.nodeType === 1;
+    n.textContent.split(/(\s+)/).forEach(tok => {
+      if (!tok) return;
+      if (/^\s+$/.test(tok)) { el.appendChild(document.createTextNode(' ')); return; }
+      const sp = document.createElement('span');
+      sp.className = 'w' + (green ? ' g' : '');
+      sp.textContent = tok;
+      el.appendChild(sp); out.push(sp);
+    });
+  });
+  el._w = out;
+  return out;
+}
+/* kinetic word in/out */
+function words(el, t, tin, stagger = .08, dur = .7, tout = 1e9, outDur = .35, dy = 70) {
+  el._w.forEach((w, i) => {
+    const p = P(t, tin + i * stagger, tin + i * stagger + dur, E.outExpo);
+    const q = P(t, tout + i * stagger * .5, tout + i * stagger * .5 + outDur, E.inCubic);
+    S(w, { y: (1 - p) * dy - q * dy * .8, o: p * (1 - q), b: (1 - p) * 16 + q * 14, s: lerp(.92, 1, p) });
+  });
+}
+
+/* camera over a screenshot inside a viewport: focus (fx,fy) in [0..1], zoom s */
+function cam(img, vw, vh, fx, fy, s) {
+  const iw = img._w, ih = img._h;
+  let tx = vw / 2 - fx * iw * s, ty = vh / 2 - fy * ih * s;
+  tx = Math.min(0, Math.max(vw - iw * s, tx));
+  ty = Math.min(0, Math.max(vh - ih * s, ty));
+  img.style.transform = `translate(${tx}px,${ty}px) scale(${s})`;
+}
+
+/* ---------- global layers ---------- */
+const flashes = [ // [time, peak, decay]
+  [4.5, .38, .45], [8.0, .18, .35], [24.0, .16, .3], [39.0, .22, .4], [40.0, .18, .35], [41.0, .22, .4], [42.0, .35, .6]
+];
+const shakes = [[4.5, 14, .45], [42.0, 10, .5], [39.0, 6, .3], [40.0, 6, .3], [41.0, 6, .3]];
+function hash(n) { const x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); }
+
+let grainTiles = [];
+function makeGrain() {
+  for (let k = 0; k < 4; k++) {
+    const c = document.createElement('canvas'); c.width = c.height = 256;
+    const g = c.getContext('2d'), d = g.createImageData(256, 256);
+    let seed = 1234 + k * 999;
+    const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+    for (let i = 0; i < d.data.length; i += 4) { const v = rnd() * 255; d.data[i] = d.data[i + 1] = d.data[i + 2] = v; d.data[i + 3] = 255; }
+    g.putImageData(d, 0, 0); grainTiles.push(`url(${c.toDataURL()})`);
+  }
+}
+
+function drawGlobal(t) {
+  const f = Math.floor(t * 24);
+  $('grain').style.backgroundImage = grainTiles[f % 4];
+  $('grain').style.backgroundPosition = `${Math.floor(hash(f) * 256)}px ${Math.floor(hash(f + 7) * 256)}px`;
+  // drifting orbs
+  S($('orb1'), { x: 1150 + Math.sin(t * .31) * 260, y: -240 + Math.cos(t * .23) * 180 });
+  S($('orb2'), { x: -260 + Math.cos(t * .27) * 220, y: 520 + Math.sin(t * .35) * 160 });
+  S($('orb3'), { x: 600 + Math.sin(t * .19) * 400, y: 300 + Math.cos(t * .21) * 200 });
+  const intro = P(t, 0, 3.5, E.inOutCubic);
+  $('orb1').style.opacity = $('orb2').style.opacity = .35 + .65 * intro;
+  S($('grid'), { x: (t * 14) % 96, y: (t * 9) % 96, o: .5 + .5 * intro });
+  // flashes
+  let fl = 0;
+  flashes.forEach(([ft, pk, dc]) => { if (t >= ft && t < ft + dc) fl = Math.max(fl, pk * (1 - (t - ft) / dc) ** 2); });
+  $('flash').style.opacity = fl;
+  // shakes (applied to stage content via scenes wrapper)
+  let sx = 0, sy = 0;
+  shakes.forEach(([st, amp, dc]) => { if (t >= st && t < st + dc) { const k = amp * (1 - (t - st) / dc) ** 2; sx += Math.sin(t * 95) * k; sy += Math.cos(t * 83) * k; } });
+  document.querySelectorAll('.scene').forEach(s => s.style.translate = `${sx}px ${sy}px`);
+  // fade in / out of film
+  $('letterbox').style.opacity = Math.max(1 - P(t, 0, .35, E.lin), P(t, 47.2, 48, E.inCubic));
+}
+
+/* ================= SCENES ================= */
+const scenes = [];
+function scene(id, a, b, draw) { scenes.push({ el: $(id), a, b, draw }); }
+
+/* ---------- S1 hook 0-4 ---------- */
+scene('s1', 0, 4.05, t => {
+  words($('s1a'), t, .25, .12, .75, 1.72, .3);
+  const b = $('s1b');
+  words(b, t, 2.0, .1, .7);
+  // zoom-through exit
+  const z = P(t, 3.55, 4.05, E.inExpo);
+  S(b, { s: 1 + z * 2.4, o: 1 - z, b: z * 18 });
+  const bar = $('s1bar'), g = b._w.filter(w => w.classList.contains('g'));
+  const r1 = g[0].getBoundingClientRect(), r2 = g[g.length - 1].getBoundingClientRect(), st = $('stage').getBoundingClientRect();
+  const k = st.width / 1920;
+  const w = P(t, 2.75, 3.25, E.outExpo);
+  bar.style.left = ((r1.left - st.left) / k) + 'px';
+  bar.style.top = ((r1.bottom - st.top) / k + 4) + 'px';
+  bar.style.width = (((r2.right - r1.left) / k) * w) + 'px';
+  bar.style.opacity = (1 - z) * (w > 0 ? 1 : 0);
+});
+
+/* ---------- S2 logo 4-8 ---------- */
+scene('s2', 4, 8.05, t => {
+  // halves fly in and snap at 4.5
+  const p = P(t, 4.0, 4.5, E.inCubic);
+  const a = $('icoA'), bb = $('icoB');
+  S(a, { x: (1 - p) * -900, y: (1 - p) * -700, r: (1 - p) * -40, o: P(t, 4, 4.1, E.lin) });
+  S(bb, { x: (1 - p) * 900, y: (1 - p) * 700, r: (1 - p) * -40, o: P(t, 4, 4.1, E.lin) });
+  // impact pulse + lockup move
+  const pulse = t > 4.5 ? Math.exp(-(t - 4.5) * 9) * Math.sin((t - 4.5) * 40) * .08 : 0;
+  const m = P(t, 5.05, 5.9, E.inOutExpo);
+  const iconScale = lerp(1.9, 1, m) * (1 + pulse);
+  S($('iconwrap'), { s: iconScale, x: lerp(313, 0, m) });
+  $('iconwrap').style.filter = `drop-shadow(0 0 ${lerp(60, 26, m)}px rgba(62,207,142,${t > 4.5 ? .55 : 0}))`;
+  const wt = $('wordtype');
+  wt.style.clipPath = `inset(0 ${lerp(100, 0, P(t, 5.25, 6.05, E.outExpo))}% 0 ${lerp(20, 0, m)}%)`;
+  S(wt, { x: lerp(90, 0, P(t, 5.25, 6.1, E.outExpo)), o: P(t, 5.2, 5.5, E.lin) });
+  // ring shockwave
+  const rp = P(t, 4.5, 5.3, E.outCubic);
+  const ring = $('ring');
+  S(ring, { s: 1 + rp * 150, o: t < 4.5 ? 0 : (1 - rp) * .9 });
+  ring.style.borderWidth = (3 / (1 + rp * 150) * 4) + 'px';
+  words($('s2tag'), t, 6.0, .07, .7, 7.55, .3, 40);
+  const ex = P(t, 7.55, 8.05, E.inExpo);
+  S($('lock'), { s: 1 - ex * .25, o: 1 - ex, b: ex * 12 });
+});
+
+/* ---------- S3 database 8-14 ---------- */
+scene('s3', 7.9, 14.05, t => {
+  words($('s3h'), t, 8.1, .08, .8, 10.9, .35);
+  S($('s3eb'), { y: (1 - P(t, 8.0, 8.6)) * 30, o: P(t, 8.0, 8.5) * (1 - P(t, 10.9, 11.2, E.lin)) });
+  const inP = P(t, 8.15, 9.5, E.outQuint);
+  const zoomP = P(t, 10.8, 12.0, E.inOutCubic);
+  const b = $('s3b');
+  b.style.transformOrigin = '50% 0%';
+  S(b, { y: lerp(760, 0, inP) - zoomP * 240, rx: lerp(38, 6, inP) * (1 - zoomP), s: lerp(.9, 1, inP) + zoomP * .08, o: P(t, 8.1, 8.5, E.lin) });
+  // camera inside screenshot: slow drift then push to "name" column
+  const drift = P(t, 8.5, 14, E.lin);
+  const s = lerp(1.0, 1.06, drift) + zoomP * 0.64;
+  cam($('s3img'), 1540, 867, lerp(.5, .62, zoomP), lerp(.45, .3, zoomP), s);
+  // highlight name column
+  const hl = $('s3hl'), hp = P(t, 11.9, 12.5, E.outExpo);
+  const img = $('s3img');
+  // column "name" region in image coords -> viewport via current transform
+  const m = new DOMMatrix(getComputedStyle(img).transform);
+  const x0 = .576 * img._w, x1 = .80 * img._w, y0 = .093 * img._h, y1 = .64 * img._h;
+  const L = m.a * x0 + m.e, R = m.a * x1 + m.e, T = m.d * y0 + m.f + 46, B = m.d * y1 + m.f + 46;
+  const cy = (T + B) / 2, hh = (B - T) * hp;
+  Object.assign(hl.style, { left: L + 'px', width: (R - L) + 'px', top: (cy - hh / 2) + 'px', height: hh + 'px', opacity: hp * (1 - P(t, 13.5, 13.8, E.lin)) });
+  ['s3c1', 's3c2', 's3c3'].forEach((id, i) => {
+    const p = P(t, 12.2 + i * .16, 12.9 + i * .16, E.outBack);
+    S($(id), { x: (1 - p) * -120, s: lerp(.6, 1, p), o: clamp(p * 1.5) * (1 - P(t, 13.55, 13.8, E.lin)) });
+  });
+  // whip up exit
+  const ex = P(t, 13.65, 14.05, E.inExpo);
+  $('s3').style.transform = `translateY(${-ex * 1100}px)`;
+  $('s3').style.filter = ex > .02 ? `blur(${ex * 14}px)` : '';
+});
+
+/* ---------- S4 SQL + AI 14-19 ---------- */
+const PROMPT = 'Select countries that start with the letter S';
+const SQL = [[['select', 'k'], [' *', 'p']], [['from', 'k'], [' public.countries', 'f']], [['where', 'k'], [' name ', 'v'], ['ilike', 'k'], [" 'S%'", 's'], [';', 'p']]];
+scene('s4', 13.95, 19.05, t => {
+  const en = P(t, 13.95, 14.5, E.outExpo);
+  $('s4').style.transform = `translateY(${(1 - en) * 1100}px)`;
+  $('s4').style.filter = en < .98 ? `blur(${(1 - en) * 14}px)` : '';
+  words($('s4h'), t, 14.3, .09, .7);
+  words($('s4h2'), t, 14.6, .09, .7);
+  const b = $('s4b');
+  b.style.transformOrigin = '0% 50%';
+  const pan = P(t, 14.6, 18.2, E.inOutCubic);
+  S(b, { ry: lerp(-22, -8, pan), x: lerp(60, 0, pan), z: lerp(-100, 0, pan) });
+  cam($('s4img'), 1100, 620, lerp(.25, .8, pan), lerp(.3, .4, pan), lerp(1.1, 1.9, pan));
+  const pc = P(t, 15.1, 15.7, E.outBack);
+  S($('s4prompt'), { y: (1 - pc) * 90, s: lerp(.85, 1, pc), o: clamp(pc * 1.4) });
+  const n = Math.floor(PROMPT.length * P(t, 15.5, 16.9, E.lin));
+  const blink = Math.floor(t * 3) % 2 === 0 || (t > 15.5 && t < 16.9);
+  $('s4type').innerHTML = PROMPT.slice(0, n) + (t < 17.1 ? `<span class="caret" style="opacity:${blink ? 1 : 0}"></span>` : '');
+  const sq = $('s4sql');
+  const sp = P(t, 17.05, 17.25, E.outCubic);
+  sq.style.opacity = sp; sq.style.display = t > 17 ? 'block' : 'none';
+  sq.innerHTML = SQL.map((line, i) => {
+    const lp = P(t, 17.1 + i * .15, 17.5 + i * .15, E.outExpo);
+    return `<div style="opacity:${lp};transform:translateX(${(1 - lp) * 30}px)">` + line.map(([s, c]) => `<span class="tk-${c}">${s}</span>`).join('') + '</div>';
+  }).join('');
+  const ex = P(t, 18.65, 19.05, E.inExpo);
+  if (ex > 0) { $('s4').style.transform = `translateX(${-ex * 1900}px)`; $('s4').style.filter = `blur(${ex * 16}px)`; }
+});
+
+/* ---------- S5 auth 19-24 ---------- */
+const PROVS = ['google', 'github', 'apple', 'discord', 'microsoft', 'slack', 'twitch', 'spotify', 'gitlab', 'facebook', 'twitter', 'bitbucket'];
+scene('s5', 18.95, 24.05, t => {
+  const en = P(t, 18.95, 19.45, E.outExpo);
+  $('s5').style.transform = `translateX(${(1 - en) * 1900}px)`;
+  $('s5').style.filter = en < .98 ? `blur(${(1 - en) * 16}px)` : '';
+  S($('s5eb'), { y: (1 - P(t, 19.2, 19.8)) * 30, o: P(t, 19.2, 19.6) });
+  words($('s5h'), t, 19.3, .09, .7);
+  words($('s5h2'), t, 19.55, .09, .7);
+  const sp = P(t, 19.9, 20.6);
+  S($('s5s'), { y: (1 - sp) * 30, o: sp });
+  const ip = P(t, 19.4, 20.4, E.outQuint);
+  const bob = Math.sin(t * 1.6) * 10;
+  const ex = P(t, 23.55, 24.05, E.inExpo);
+  S($('s5img'), { y: (1 - ip) * 200 + bob, s: lerp(.85, 1, ip) + ex * 1.8, o: clamp(ip * 1.5) * (1 - ex), r: (1 - ip) * 4, b: ex * 20 });
+  // provider orbit
+  const cx = 1390, cy = 530;
+  $('s5provs')._els.forEach((el, i) => {
+    const n = PROVS.length, base = i / n * Math.PI * 2 + t * .22;
+    const p = P(t, 20.3 + i * .07, 20.9 + i * .07, E.outBack);
+    const rx = 520, ry = 400;
+    const x = cx + Math.cos(base) * rx - 52, y = cy + Math.sin(base) * ry - 52;
+    const depth = (Math.sin(base) + 1) / 2;
+    S(el, { x: lerp(cx - 52, x, clamp(p)), y: lerp(cy - 52, y, clamp(p)), s: clamp(p, 0, 1.2) * lerp(.8, 1.08, depth) * (1 - ex), o: clamp(p * 2) * (1 - ex) });
+    el.style.zIndex = depth > .5 ? 5 : 1;
+  });
+  $('s5img').style.zIndex = 3;
+});
+
+/* ---------- S6 montage 24-30 ---------- */
+const CUTS = [
+  ['auto-generated-rest-api.png', 'Instant APIs'],
+  ['file-storage.png', 'Storage'],
+  ['functions-hero.png', 'Edge Functions'],
+  ['branching.png', 'Branching'],
+  ['logs-analytics.png', 'Observability'],
+  ['security-and-performance-advisor.png', 'Advisors'],
+];
+scene('s6', 23.95, 30.05, t => {
+  $('s6')._cuts.forEach((c, i) => {
+    const a = 24 + i;
+    const vis = t >= a - .05 && t < a + 1.25;
+    c.el.style.display = vis ? 'block' : 'none';
+    if (!vis) return;
+    const wipe = P(t, a - .05, a + .28, E.outExpo);
+    // diagonal wipe from right (alternating direction)
+    const dir = i % 2 ? -1 : 1;
+    const k = (1 - wipe) * 130;
+    c.el.style.clipPath = dir > 0
+      ? `polygon(${k}% 0,${100 + k}% 0,${100 + k - 30}% 100%,${k - 30}% 100%)`.replace(/(-?\d+\.?\d*)%/g, (m, v) => clamp(+v, -30, 130) + '%')
+      : `polygon(${-k + 30}% 0,${100 - k + 30}% 0,${100 - k}% 100%,${-k}% 100%)`;
+    if (wipe > .999) c.el.style.clipPath = '';
+    const z = P(t, a, a + 1.2, E.outCubic);
+    S(c.img, { s: lerp(1.16, 1.04, z), x: dir * lerp(40, -20, z) });
+    const lp = P(t, a + .08, a + .5, E.outExpo);
+    S(c.lab, { y: (1 - lp) * 80, o: lp });
+    const lastEx = i === CUTS.length - 1 ? P(t, 29.7, 30.05, E.inExpo) : 0;
+    S(c.el, { s: 1 - lastEx * .15, o: 1 - lastEx, b: lastEx * 14 });
+  });
+});
+
+/* ---------- S7 code 30-35 ---------- */
+const CODE = [
+  [['import', 'k'], [' { ', 'p'], ['createClient', 'f'], [' } ', 'p'], ['from', 'k'], [" '@supabase/supabase-js'", 's']],
+  [],
+  [['const', 'k'], [' supabase ', 'v'], ['= ', 'p'], ['createClient', 'f'], ['(URL, KEY)', 'p']],
+  [],
+  [['const', 'k'], [' { data } ', 'v'], ['= ', 'p'], ['await', 'k'], [' supabase', 'v']],
+  [['  .', 'p'], ['from', 'f'], ['(', 'p'], ["'countries'", 's'], [')', 'p']],
+  [['  .', 'p'], ['select', 'f'], ['(', 'p'], ["'name, code'", 's'], [')', 'p']],
+];
+const CODELEN = CODE.reduce((n, l) => n + l.reduce((m, [s]) => m + s.length, 0) + 1, 0);
+const ROWS = [['Samoa', 'WS'], ['San Marino', 'SM'], ['Saudi Arabia', 'SA'], ['Senegal', 'SN'], ['Serbia', 'RS']];
+scene('s7', 29.95, 35.05, t => {
+  const en = P(t, 29.95, 30.5, E.outExpo);
+  $('s7').style.opacity = en;
+  $('s7').style.transform = `scale(${lerp(1.12, 1, en)})`;
+  S($('s7eb'), { y: (1 - P(t, 30.1, 30.7)) * 30, o: P(t, 30.1, 30.5) });
+  words($('s7h'), t, 30.2, .08, .7);
+  const ep = P(t, 30.3, 31.0, E.outQuint);
+  S($('s7ed'), { y: (1 - ep) * 160, o: ep });
+  // typing
+  let n = Math.floor(CODELEN * P(t, 30.8, 33.0, E.lin));
+  let html = '', lines = 0;
+  for (const line of CODE) {
+    if (n <= 0) break;
+    lines++;
+    for (const [s, c] of line) {
+      if (n <= 0) break;
+      const part = s.slice(0, n); n -= part.length;
+      html += `<span class="tk-${c}">${part.replace(/</g, '&lt;')}</span>`;
+    }
+    if (n > 0) { html += '\n'; n--; }
+  }
+  const blink = t < 33 || Math.floor(t * 3) % 2 === 0;
+  $('s7code').innerHTML = html + `<span class="caret" style="opacity:${blink ? 1 : 0}"></span>`;
+  $('s7ln').textContent = Array.from({ length: Math.max(1, lines) }, (_, i) => i + 1).join('\n');
+  // response card
+  const rp = P(t, 33.15, 33.8, E.outBack);
+  S($('s7res'), { x: (1 - rp) * 200, s: lerp(.8, 1, rp), o: clamp(rp * 1.4), r: (1 - rp) * 3 });
+  $('s7rows').innerHTML = ROWS.map(([nm, cd], i) => {
+    const q = P(t, 33.45 + i * .09, 33.85 + i * .09, E.outExpo);
+    return `<div class="mono" style="display:flex;justify-content:space-between;font-size:25px;padding:12px 18px;border-radius:10px;margin-top:8px;background:${i % 2 ? 'transparent' : '#1c1c1c'};opacity:${q};transform:translateY(${(1 - q) * 20}px)">
+      <span><span class="tk-p">{ name: </span><span class="tk-s">"${nm}"</span></span><span class="tk-v">"${cd}" }</span></div>`;
+  }).join('');
+  const ex = P(t, 34.65, 35.05, E.inExpo);
+  if (ex > 0) { $('s7').style.transform = `translateY(${-ex * 1100}px)`; $('s7').style.filter = `blur(${ex * 14}px)`; }
+  else $('s7').style.filter = '';
+});
+
+/* ---------- S8 frameworks 35-39 ---------- */
+const FW = ['nextjs', 'react', 'vue', 'nuxtjs', 'svelte', 'solidjs', 'remix', 'flutter', 'dart', 'kotlin', 'expo', 'redwood', 'nestjs', 'vercel', 'stripe', 'openai', 'langchain', 'flutterflow', 'turbopack', 'reactiveX'];
+const FWN = { nextjs: 'Next.js', react: 'React', vue: 'Vue', nuxtjs: 'Nuxt', svelte: 'Svelte', solidjs: 'Solid', remix: 'Remix', flutter: 'Flutter', dart: 'Dart', kotlin: 'Kotlin', expo: 'Expo', redwood: 'Redwood', nestjs: 'NestJS', vercel: 'Vercel', stripe: 'Stripe', openai: 'OpenAI', langchain: 'LangChain', flutterflow: 'FlutterFlow', turbopack: 'Turbopack', reactiveX: 'RxJS' };
+scene('s8', 34.95, 39.05, t => {
+  const en = P(t, 34.95, 35.45, E.outExpo);
+  $('s8').style.transform = `translateY(${(1 - en) * 1100}px)`;
+  $('s8').style.filter = en < .98 ? `blur(${(1 - en) * 14}px)` : '';
+  S($('s8eb'), { y: (1 - P(t, 35.2, 35.8)) * 30, o: P(t, 35.2, 35.6) });
+  words($('s8h'), t, 35.25, .08, .7);
+  const g = $('s8grid');
+  const tilt = P(t, 35.3, 39, E.inOutCubic);
+  g.style.transform = `translateY(${lerp(40, -10, tilt)}px) rotateX(${lerp(26, 12, tilt)}deg) scale(${lerp(.96, 1.04, tilt)})`;
+  g._tiles.forEach(tl => {
+    const p = P(t, 35.55 + tl.d * .075, 36.15 + tl.d * .075, E.outBack);
+    const glow = tl.center ? 1 : 0;
+    S(tl.el, { x: tl.x, y: tl.y + (1 - clamp(p)) * 60, s: clamp(p, 0, 1.3) * (tl.center ? 1 + Math.sin(t * 4) * .02 : 1), o: clamp(p * 2) });
+    if (!tl.center) {
+      // travelling highlight wave
+      const wv = Math.max(0, Math.cos((t - 36.6) * 3.2 - tl.d * .9)) ** 12;
+      tl.el.style.borderColor = `rgba(62,207,142,${.08 + wv * .7})`;
+      tl.el.style.boxShadow = `0 0 ${wv * 50}px rgba(62,207,142,${wv * .35})`;
+    }
+  });
+  const ex = P(t, 38.7, 39.05, E.inExpo);
+  if (ex > 0) { $('s8').style.transform = `scale(${1 + ex * 1.5})`; $('s8').style.opacity = 1 - ex; $('s8').style.filter = `blur(${ex * 18}px)`; }
+  else $('s8').style.opacity = 1;
+});
+
+/* ---------- S9 benefits 39-42 ---------- */
+scene('s9', 38.95, 42.05, t => {
+  [['s9a', 39], ['s9b', 40], ['s9c', 41]].forEach(([id, a]) => {
+    const el = $(id);
+    const p = P(t, a, a + .35, E.outExpo), q = P(t, a + .82, a + 1.0, E.inCubic);
+    const last = id === 's9c';
+    S(el, { y: (1 - p) * 160 - q * 160, s: lerp(1.25, 1, p) * (last ? 1 + q * .8 : 1), o: p * (1 - q), b: (1 - p) * 20 + q * 16 });
+  });
+});
+
+/* ---------- S10 outro 42-48 ---------- */
+scene('s10', 41.95, 48, t => {
+  const lp = P(t, 42.0, 42.9, E.outExpo);
+  S($('s10lock'), { s: lerp(1.35, 1, lp), o: lp, b: (1 - lp) * 24 });
+  S($('s10glow'), { s: lerp(.4, 1, lp) + Math.sin(t * 2) * .04, o: lp });
+  words($('s10tag'), t, 42.6, .08, .75);
+  const bp = P(t, 43.5, 44.2, E.outBack), bp2 = P(t, 43.65, 44.35, E.outBack);
+  // cursor path and click at 45.0
+  const cp = P(t, 44.1, 44.95, E.inOutCubic);
+  const cx = lerp(1500, 830, cp), cy = lerp(1000, 700, cp) - Math.sin(cp * Math.PI) * 90;
+  const click = t > 44.95 && t < 45.15 ? 1 - Math.abs((t - 45.05) / .1) : 0;
+  S($('s10btn'), { y: (1 - clamp(bp)) * 60, s: clamp(bp, 0, 1.2) * (1 - click * .06), o: clamp(bp * 2) });
+  S($('s10btn2'), { y: (1 - clamp(bp2)) * 60, s: clamp(bp2, 0, 1.2), o: clamp(bp2 * 2) });
+  const glow = P(t, 45.0, 45.6, E.outExpo) * (1 - P(t, 45.6, 46.6, E.lin) * .5);
+  $('s10btn').style.boxShadow = `0 0 0 1px rgba(255,255,255,.25) inset,0 20px ${70 + glow * 80}px rgba(62,207,142,${.45 + glow * .4})`;
+  S($('s10cur'), { x: cx, y: cy, s: 1 - click * .15, o: P(t, 44.05, 44.3, E.lin) * (1 - P(t, 46.4, 46.8, E.lin)) });
+  const rp = P(t, 45.0, 45.7, E.outCubic);
+  S($('s10ripple'), { x: 810, y: 686, s: 1 + rp * 9, o: t < 45 ? 0 : (1 - rp) * .8 });
+  const up = P(t, 45.3, 46.0);
+  S($('s10url'), { y: (1 - up) * 30, o: up });
+});
+
+/* ================= boot ================= */
+function seek(t) {
+  drawGlobal(t);
+  for (const s of scenes) {
+    const on = t >= s.a && t < s.b;
+    s.el.style.display = on ? (s.el.classList.contains('center') ? 'flex' : 'block') : 'none';
+    if (on) s.draw(t);
+  }
+}
+window.seek = seek;
+
+async function boot() {
+  makeGrain();
+  ['s1a', 's1b', 's2tag', 's3h', 's4h', 's4h2', 's5h', 's5h2', 's7h', 's8h', 's10tag'].forEach(id => split($(id)));
+  // providers
+  const pv = $('s5provs'); pv._els = PROVS.map(n => {
+    const d = document.createElement('div'); d.className = 'prov'; d.style.left = d.style.top = '0';
+    d.innerHTML = `<img src="assets/logos/auth-${n}.svg">`;
+    if (n === 'github') d.firstChild.style.filter = 'invert(1)';
+    pv.appendChild(d); return d;
+  });
+  // montage cuts
+  const m = $('s6'); m._cuts = CUTS.map(([src, name], i) => {
+    const el = document.createElement('div'); el.className = 'full'; el.style.overflow = 'hidden'; el.style.background = '#1a1a1a';
+    const dark = src === 'functions-hero.png';
+    el.innerHTML = `<img src="assets/img/${src}" class="full" style="width:100%;height:100%;object-fit:${dark ? 'contain' : 'cover'};${dark ? 'background:radial-gradient(ellipse at 50% 40%,#1f3a2c,#0c0c0c 70%)' : ''}">
+      <div class="full" style="background:linear-gradient(0deg,rgba(0,0,0,.8) 0%,rgba(0,0,0,.25) 35%,transparent 55%)"></div>
+      <div class="label"><div class="n">0${i + 4}</div><div class="t">${name}</div></div>`;
+    m.appendChild(el);
+    return { el, img: el.querySelector('img'), lab: el.querySelector('.label') };
+  });
+  // framework grid 7x3
+  const g = $('s8grid'); g._tiles = [];
+  const cols = 7, rows = 3, tw = 190, th = 150, gap = 26;
+  const W = cols * tw + (cols - 1) * gap, x0 = (1920 - W) / 2, y0 = 360;
+  let fi = 0;
+  for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+    const center = r === 1 && c === 3;
+    const el = document.createElement('div'); el.className = 'tile'; el.style.left = el.style.top = '0';
+    if (center) {
+      el.innerHTML = `<img src="assets/logos/supabase-logo-icon.svg" style="filter:none;opacity:1;width:78px;height:78px">`;
+      el.style.borderColor = 'rgba(62,207,142,.8)';
+      el.style.boxShadow = '0 0 80px rgba(62,207,142,.45), inset 0 0 40px rgba(62,207,142,.15)';
+      el.style.background = 'linear-gradient(180deg,#14281e,#0f1a14)';
+    } else {
+      const n = FW[fi++];
+      el.innerHTML = `<img src="assets/logos/${n}.svg"><span>${FWN[n]}</span>`;
+      const special = { nextjs: 'invert(1) grayscale(1)', langchain: 'grayscale(1) invert(1) brightness(1.1)' };
+      if (special[n]) el.firstChild.style.filter = special[n];
+    }
+    g.appendChild(el);
+    g._tiles.push({ el, center, x: x0 + c * (tw + gap), y: y0 + r * (th + gap), d: Math.hypot(c - 3, (r - 1) * 1.3) });
+  }
+  // wait for all images & fonts
+  const imgs = [...document.images];
+  await Promise.all(imgs.map(im => im.complete ? 0 : new Promise(r => { im.onload = im.onerror = r; })));
+  await document.fonts.ready;
+  for (const id of ['s3img', 's4img']) { const im = $(id); im._w = parseFloat(im.style.width); im._h = im._w * im.naturalHeight / im.naturalWidth; }
+  // fit stage to window when previewing
+  const fit = () => { const k = Math.min(innerWidth / 1920, innerHeight / 1080); $('stage').style.transform = `scale(${k})`; };
+  const render = new URLSearchParams(location.search).has('render');
+  if (!render) { fit(); addEventListener('resize', fit); }
+  seek(0);
+  window.READY = true;
+  if (!render) preview();
+}
+
+function preview() {
+  const q = new URLSearchParams(location.search);
+  if (q.has('t')) { seek(+q.get('t')); return; }
+  const audio = new Audio('build/soundtrack.wav');
+  let t0 = null;
+  const loop = now => {
+    if (t0 === null) t0 = now;
+    const t = audio.currentTime > 0 ? audio.currentTime : (now - t0) / 1000;
+    seek(t % DURATION);
+    requestAnimationFrame(loop);
+  };
+  addEventListener('click', () => { audio.currentTime = 0; audio.play().catch(() => {}); t0 = null; });
+  requestAnimationFrame(loop);
+}
+boot();
+</script>
+</body>
+</html>
