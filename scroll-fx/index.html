@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DBI Motor Wrapping | Scroll effects demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--y:#f2c94c;--ink:#111;--muted:#444}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:auto}
+  body{font-family:Poppins,system-ui,sans-serif;color:var(--ink);background:#fff;overflow-x:hidden}
+  body.intro-lock{overflow:hidden}
+  h1,h2,h3{font-family:Oswald,Impact,sans-serif;font-weight:600;letter-spacing:-.005em;line-height:1.02}
+  .y{color:var(--y)}
+  .btn{display:inline-block;background:var(--y);color:#fff;text-decoration:none;font-weight:500;padding:14px 30px;border-radius:2px}
+
+  /* ---------- header ---------- */
+  header{position:sticky;top:0;z-index:50;background:#111;color:#fff;height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(16px,4vw,56px)}
+  header .logo{font:700 30px Oswald;letter-spacing:.02em}
+  header .logo b{color:var(--y)}
+  header nav{display:flex;gap:28px;font-size:14px}
+  header nav a{color:#ddd;text-decoration:none}
+  @media (max-width:760px){header nav{display:none}}
+
+  /* ---------- hero (mirrors the live site) ---------- */
+  .hero{position:relative;display:grid;grid-template-columns:1fr 1.15fr;min-height:calc(100vh - 68px);align-items:center;overflow:hidden}
+  .hero::after{content:"";position:absolute;right:0;top:0;bottom:0;width:38%;background:var(--y);z-index:0}
+  .hero-copy{position:relative;z-index:1;padding:40px clamp(16px,5vw,80px)}
+  .hero-copy .kicker{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#777}
+  .hero-copy h1{font-size:clamp(46px,6vw,92px);margin:14px 0 18px}
+  .hero-copy p{font-size:17px;line-height:1.65;color:var(--muted);max-width:520px;margin-bottom:28px}
+  .hero-media{position:relative;z-index:1;margin:40px clamp(16px,4vw,64px) 40px 0;aspect-ratio:16/9;border-radius:16px;overflow:hidden;box-shadow:0 40px 90px rgba(0,0,0,.35);background:#222}
+  .hero-media img{width:100%;height:100%;object-fit:cover;display:block}
+  .reveal{opacity:0;transform:translateY(28px)}
+  body.ready .reveal{opacity:1;transform:none;transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+  body.ready .reveal:nth-child(2){transition-delay:.08s} body.ready .reveal:nth-child(3){transition-delay:.16s} body.ready .reveal:nth-child(4){transition-delay:.24s}
+  @media (max-width:900px){.hero{grid-template-columns:1fr}.hero::after{top:auto;height:35%;width:100%}.hero-media{margin:0 16px 40px}}
+
+  /* ---------- intro overlay ---------- */
+  #intro{position:fixed;inset:0;z-index:100;background:#000;display:none}
+  #intro video{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;transform-origin:0 0}
+  #intro .skip{position:absolute;right:22px;bottom:22px;z-index:2;background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25);
+    font:500 13px Poppins;padding:9px 16px;border-radius:999px;cursor:pointer;backdrop-filter:blur(6px)}
+  #intro .bar{position:absolute;left:0;bottom:0;height:3px;background:var(--y);width:0}
+
+  /* ---------- scroll-scrub sections ---------- */
+  .scrub{position:relative;background:#0c0c0c;color:#fff}
+  .scrub-sticky{position:sticky;top:0;height:100vh;overflow:hidden}
+  .scrub canvas{position:absolute;inset:0;width:100%;height:100%;display:block;background:#0c0c0c center/cover no-repeat}
+  .scrub .shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.1) 45%,transparent 70%)}
+  .scrub .beat{position:absolute;left:clamp(20px,6vw,96px);max-width:min(560px,86vw);opacity:0;will-change:opacity,transform}
+  .scrub .beat h2{font-size:clamp(40px,5.5vw,84px)}
+  .scrub .beat p{font-size:clamp(15px,1.3vw,19px);line-height:1.6;color:#ddd;margin-top:12px}
+  .scrub .tag{display:inline-block;font:600 12px Poppins;letter-spacing:.22em;text-transform:uppercase;color:var(--y);margin-bottom:10px}
+  .scrub .loading{position:absolute;right:20px;bottom:18px;font-size:12px;color:#aaa;letter-spacing:.08em}
+  .scrub .progress{position:absolute;left:0;bottom:0;height:3px;background:var(--y);width:0;opacity:.9}
+  .scrub .center{left:50%;text-align:center;transform:translateX(-50%)}
+
+  /* placeholder content between effects */
+  .block{padding:110px clamp(16px,6vw,96px);display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+  .block h2{font-size:clamp(40px,5vw,72px);font-style:italic}
+  .block p{color:var(--muted);line-height:1.7;margin-top:16px}
+  .block .ph{aspect-ratio:4/3;border-radius:14px;background:#e9e9e9}
+  .yellow{background:var(--y)}
+  footer{background:#111;color:#999;text-align:center;padding:60px 16px;font-size:14px}
+  @media (max-width:900px){.block{grid-template-columns:1fr}}
+</style>
+</head>
+<body class="intro-lock">
+
+<!-- ================= 1. OPENING: "Lights On" ================= -->
+<div id="intro" aria-hidden="true">
+  <video id="introVideo" muted playsinline preload="auto"></video>
+  <button class="skip" id="skipIntro">Skip intro</button>
+  <div class="bar" id="introBar"></div>
+</div>
+
+<header>
+  <div class="logo">D<b>B</b>i</div>
+  <nav><a href="#">Our Services</a><a href="#">Mini Builds</a><a href="#">Showroom</a><a href="#">Reels</a><a href="#">Contact</a></nav>
+  <a class="btn" href="#book" style="padding:10px 20px;font-size:14px">Book Now</a>
+</header>
+
+<section class="hero">
+  <div class="hero-copy">
+    <div class="kicker reveal">Matte PPF &amp; Wraps</div>
+    <h1 class="reveal">Car Wrapping &amp; <span class="y">PPF In Dubai</span></h1>
+    <p class="reveal">DBI Motor Wrapping protects and transforms high-end cars in Al Quoz 3: full body PPF, ceramic coating, wraps and deep detailing.</p>
+    <div class="reveal"><a class="btn" href="#book">Book Now</a></div>
+  </div>
+  <div class="hero-media" id="heroMedia"><img id="heroImg" alt="Matte black Ferrari Purosangue in the DBI studio"></div>
+</section>
+
+<section class="block">
+  <div><h2>Wrap It. Own It. <span class="y">Show It.</span></h2><p>(Existing "Wrap It. Own It. Show It." and "Explore our services" content stays as is.)</p></div>
+  <div class="ph"></div>
+</section>
+
+<!-- ================= 2. SCROLL: "The Wrap" (before Full Body Matte PPF) ================= -->
+<section class="scrub" id="wrap" style="height:380vh">
+  <div class="scrub-sticky">
+    <canvas></canvas>
+    <div class="shade"></div>
+    <div class="beat" data-in="0.02" data-out="0.30" style="top:22%"><span class="tag">Before</span><h2>Factory gloss.</h2><p>Beautiful on day one. Swirls, stone chips and scratches by month three.</p></div>
+    <div class="beat" data-in="0.36" data-out="0.70" style="top:22%"><span class="tag">During</span><h2>Matte <span class="y">PPF</span>, panel by panel.</h2><p>A clear protective film goes over every panel and turns the finish to satin.</p></div>
+    <div class="beat" data-in="0.78" data-out="2" style="top:22%"><span class="tag">After</span><h2>Same car.<br><span class="y">New skin.</span></h2><p>Full body matte PPF, done at DBI Motor Wrapping, Al Quoz 3.</p></div>
+    <div class="progress"></div><div class="loading"></div>
+  </div>
+</section>
+
+<section class="block">
+  <div><h2>FULL BODY <span class="y">MATTE PPF</span></h2><p>(Existing Full Body Matte PPF, Ceramic Coating, Vehicle Wrapping, Windshield Protection, Why Choose DBI and In Action sections continue here.)</p></div>
+  <div class="ph"></div>
+</section>
+
+<!-- ================= 3. SCROLL: "The Drive-In" (before Our Cars From Every Angle) ================= -->
+<section class="scrub" id="drive" style="height:420vh">
+  <div class="scrub-sticky">
+    <canvas></canvas>
+    <div class="shade"></div>
+    <div class="beat" data-in="0.03" data-out="0.26" style="top:18%"><span class="tag">Ferrari Purosangue</span><h2>It left our studio<br><span class="y">like this.</span></h2></div>
+    <div class="beat" data-in="0.30" data-out="0.52" style="top:18%"><h2>Full body <span class="y">matte PPF</span></h2><p>Every panel wrapped in satin protection film.</p></div>
+    <div class="beat" data-in="0.55" data-out="0.76" style="top:18%"><h2>Ceramic coated<br><span class="y">inside and out</span></h2><p>Interior, rims and windshield included.</p></div>
+    <div class="beat" data-in="0.82" data-out="2" style="top:18%"><h2>Book the same<br><span class="y">for your car.</span></h2><p style="margin-bottom:22px">Now spin it around below ↓</p><a class="btn" href="#book">Book Now</a></div>
+    <div class="progress"></div><div class="loading"></div>
+  </div>
+</section>
+
+<section class="block yellow">
+  <div><h2 style="font-style:normal">Our Cars From <span style="color:#fff">Every Angle</span></h2><p style="color:#333">(The 360° spinner sits here.)</p></div>
+  <div class="ph" style="background:#fff3"></div>
+</section>
+
+<footer id="book">DBI Motor Wrapping · Al Quoz 3, Dubai · demo of scroll effects</footer>
+
+<script type="module">
+import { ScrollScrub, loadZipSequence } from './scrub.js';
+
+// Asset locations (the build/deploy step rewrites this block)
+const FX = window.FX || {
+  intro: 'assets/intro.mp4', introPoster: 'assets/intro-last.jpg',
+  wrap: 'assets/wrap.zip', wrapPoster: 'assets/wrap-first.jpg', wrapCount: 96,
+  drive: 'assets/drive.zip', drivePoster: 'assets/drive-first.jpg', driveCount: 120,
+};
+
+/* ---------- 1. intro: "Lights On", then the frame flies into the hero slot ---------- */
+const heroImg = document.getElementById('heroImg');
+heroImg.src = FX.introPoster;
+const intro = document.getElementById('intro'), v = document.getElementById('introVideo');
+const finishIntro = (() => {
+  let done = false;
+  return async () => {
+    if (done) return; done = true;
+    try { sessionStorage.setItem('dbiIntroSeen', '1'); } catch {}
+    const r = document.getElementById('heroMedia').getBoundingClientRect();
+    // shrink the full-screen video into the hero image box, then fade out.
+    // Animating the box (not a scale transform) keeps object-fit:cover, so the car never stretches.
+    const anim = v.animate([
+      { left: '0px', top: '0px', width: innerWidth + 'px', height: innerHeight + 'px', borderRadius: '0px' },
+      { left: r.left + 'px', top: r.top + 'px', width: r.width + 'px', height: r.height + 'px', borderRadius: '16px' },
+    ], { duration: 1000, easing: 'cubic-bezier(.7,0,.2,1)', fill: 'forwards' });
+    intro.animate([{ backgroundColor: '#000' }, { backgroundColor: 'rgba(0,0,0,0)' }], { duration: 700, delay: 300, fill: 'forwards' });
+    document.getElementById('skipIntro').style.display = 'none';
+    await anim.finished;
+    document.body.classList.remove('intro-lock');
+    document.body.classList.add('ready');
+    intro.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 250, fill: 'forwards' }).finished.then(() => intro.remove());
+  };
+})();
+let seen = false; try { seen = sessionStorage.getItem('dbiIntroSeen'); } catch {}
+if (seen || matchMedia('(prefers-reduced-motion: reduce)').matches || new URLSearchParams(location.search).has('nointro')) {
+  intro.remove(); document.body.classList.remove('intro-lock'); document.body.classList.add('ready');
+} else {
+  intro.style.display = 'block';
+  scrollTo(0, 0);
+  v.src = FX.intro;
+  v.addEventListener('timeupdate', () => { document.getElementById('introBar').style.width = (v.currentTime / (v.duration || 1) * 100) + '%'; });
+  v.addEventListener('ended', finishIntro);
+  document.getElementById('skipIntro').addEventListener('click', finishIntro);
+  v.play().catch(finishIntro);
+  // never let a slow connection hold the page hostage
+  setTimeout(() => { if (v.currentTime < 0.1) finishIntro(); }, 2500);
+}
+
+/* ---------- 2 + 3. scroll-scrubbed sequences ---------- */
+function mount(id, zip, poster, count) {
+  const sec = document.getElementById(id);
+  const canvas = sec.querySelector('canvas');
+  canvas.style.backgroundImage = `url(${poster})`;
+  const frames = new Array(count).fill(null);
+  const scrub = new ScrollScrub(sec, {
+    frames,
+    onProgress: p => (sec.querySelector('.progress').style.width = p * 100 + '%'),
+  });
+  const label = sec.querySelector('.loading');
+  loadZipSequence(zip, (i, bmp) => { frames[i] = bmp; scrub.dirty = true; },
+    (got, total) => { label.textContent = total && got < total ? `loading ${Math.round(got / total * 100)}%` : ''; })
+    .then(() => { label.textContent = ''; canvas.style.backgroundImage = 'none'; })
+    .catch(e => { label.textContent = ''; console.error(e); });
+}
+mount('wrap', FX.wrap, FX.wrapPoster, FX.wrapCount);
+// the drive-in loads once the visitor is getting close, to keep first load light
+const driveObs = new IntersectionObserver(([e]) => {
+  if (e.isIntersecting) { driveObs.disconnect(); mount('drive', FX.drive, FX.drivePoster, FX.driveCount); }
+}, { rootMargin: '150% 0px' });
+driveObs.observe(document.getElementById('drive'));
+</script>
+</body>
+</html>
