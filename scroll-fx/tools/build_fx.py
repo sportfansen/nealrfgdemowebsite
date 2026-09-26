@@ -70,7 +70,13 @@ def main():
     counts = {}
     if args.intro:
         # skip the pitch-black lead-in so the intro opens on the first flicker of light
-        ff('-ss', str(args.intro_start), '-i', args.intro, '-an', '-vf', 'scale=1600:-2:flags=lanczos', '-c:v', 'libx264', '-preset', 'slow', '-crf', '21',
+        # Speed ramp so the intro is ~1.3 s: flicker at 1.5x, the light ramping up at 2.5x,
+        # and the static tail (lights already fully on) cut entirely.
+        a0, a1, a2 = args.intro_start, 1.5, 3.0
+        ramp = (f'[0:v]trim={a0}:{a1},setpts=(PTS-STARTPTS)/1.5[a];'
+                f'[0:v]trim={a1}:{a2},setpts=(PTS-STARTPTS)/2.5[b];'
+                f'[a][b]concat=n=2:v=1:a=0,fps=30,scale=1600:-2:flags=lanczos[v]')
+        ff('-i', args.intro, '-filter_complex', ramp, '-map', '[v]', '-an', '-c:v', 'libx264', '-preset', 'slow', '-crf', '21',
            '-pix_fmt', 'yuv420p', '-movflags', '+faststart', os.path.join(OUT, 'intro.mp4'))
         ff('-sseof', '-0.1', '-i', args.intro, '-frames:v', '1', '-q:v', '2', '-vf', 'scale=1600:-2', os.path.join(OUT, 'intro-last.jpg'))
         # tiny first-frame poster, inlined into the page so something shows on the very first paint

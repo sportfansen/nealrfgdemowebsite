@@ -160,8 +160,8 @@ const finishIntro = (() => {
     const anim = v.animate([
       { left: '0px', top: '0px', width: innerWidth + 'px', height: innerHeight + 'px', borderRadius: '0px' },
       { left: r.left + 'px', top: r.top + 'px', width: r.width + 'px', height: r.height + 'px', borderRadius: '16px' },
-    ], { duration: 1000, easing: 'cubic-bezier(.7,0,.2,1)', fill: 'forwards' });
-    intro.animate([{ backgroundColor: '#000' }, { backgroundColor: 'rgba(0,0,0,0)' }], { duration: 700, delay: 300, fill: 'forwards' });
+    ], { duration: 700, easing: 'cubic-bezier(.65,0,.25,1)', fill: 'forwards' });
+    intro.animate([{ backgroundColor: '#000' }, { backgroundColor: 'rgba(0,0,0,0)' }], { duration: 450, delay: 200, fill: 'forwards' });
     document.getElementById('skipIntro').style.display = 'none';
     await anim.finished;
     document.body.classList.remove('intro-lock');
@@ -183,7 +183,7 @@ if (matchMedia('(prefers-reduced-motion: reduce)').matches || new URLSearchParam
   document.getElementById('skipIntro').addEventListener('click', finishIntro);
   v.play().catch(finishIntro);
   // never let a slow connection hold the page hostage
-  setTimeout(() => { if (v.currentTime < 0.1) finishIntro(); }, 2500);
+  setTimeout(() => { if (v.currentTime < 0.1) finishIntro(); }, 1800);
 }
 
 /* ---------- 2 + 3. scroll-scrubbed sequences ---------- */
