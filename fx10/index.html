@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DBI Motor Wrapping | 10 animation concepts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="fx10.css">
+</head>
+<body>
+
+<nav class="top">
+  <div class="logo">D<b>B</b>i</div>
+  <a href="#i1">1 Before/After</a><a href="#i2">2 Self-healing</a><a href="#i3">3 Water beading</a><a href="#i4">4 Foam wipe</a>
+  <a href="#i5">5 Layers</a><a href="#i6">6 Wrap colours</a><a href="#i7">7 Inspection lamp</a><a href="#i8">8 Shutter</a>
+  <a href="#i9">9 Kinetic</a><a href="#i10">10 Services ride</a>
+</nav>
+
+<header class="intro">
+  <h1>10 animation <span class="y">concepts</span></h1>
+  <p>Each one is built with DBI's real Ferrari Purosangue photos, or AI footage generated from them, and uses a different interaction: drag, hold, scroll, wipe, click, hover and parallax. Each section says where it would sit on dbi-motor-wrapping.pages.dev. They are all independent, so pick any combination.</p>
+  <div class="loadbar"><i id="loadbar"></i></div><div class="loadtxt" id="loadtxt">loading images…</div>
+</header>
+
+<!-- 1 -->
+<section id="i1">
+  <div class="idea-head"><div><span class="num">01</span><h2>Before / After <span class="y">PPF</span></h2></div>
+    <div class="meta"><b>Interaction:</b> drag the handle (it sweeps in by itself the first time you scroll to it).<br><b>Place it:</b> top of "Full Body Matte PPF", showing neglected paint vs. DBI matte PPF.</div></div>
+  <div class="stage wide" id="ba">
+    <img class="fill before" data-src="before" alt="Unprotected paint with swirl marks">
+    <img class="fill after" data-src="after" alt="Matte PPF finish">
+    <span class="pill l">Unprotected</span><span class="pill r">DBI Matte PPF</span>
+    <div class="handle"><div class="knob"><svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></div></div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section id="i2">
+  <div class="idea-head"><div><span class="num">02</span><h2>Self-healing <span class="y">test</span></h2></div>
+    <div class="meta"><b>Interaction:</b> press and hold on the panel. Heat washes over the film and the scratches melt away; let go and it rewinds.<br><b>Place it:</b> inside the PPF section, next to "self-healing film".</div></div>
+  <div class="stage wide" id="heal">
+    <canvas class="fill"></canvas>
+    <div class="heat"></div>
+    <div class="done"><h3>Scratches?<br><span class="y">Gone.</span></h3></div>
+    <div class="gauge"><svg viewBox="0 0 84 84"><circle class="t" cx="42" cy="42" r="36"/><circle class="p" cx="42" cy="42" r="36"/></svg><span>0%</span></div>
+    <div class="hint">Press &amp; hold to apply heat</div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section id="i3" class="idea-head-wrap">
+  <div class="idea-head"><div><span class="num">03</span><h2>Water <span class="y">beading</span></h2></div>
+    <div class="meta"><b>Interaction:</b> scroll. Slow-motion water hits the ceramic-coated hood, beads up and rolls off.<br><b>Place it:</b> opening of "Ceramic Coating".</div></div>
+</section>
+<section class="scrub" id="water" style="height:320vh">
+  <div class="sticky"><canvas class="fill"></canvas><div class="shade"></div>
+    <div class="beat" data-in="0.02" data-out="0.32"><h3>Rain hits.</h3><p>Every car in Dubai gets dust, sand and the occasional downpour.</p></div>
+    <div class="beat" data-in="0.38" data-out="0.70"><h3>It <span class="y">beads.</span></h3><p>Ceramic coating makes the surface hydrophobic, so water can't sit on the paint.</p></div>
+    <div class="beat" data-in="0.76" data-out="2"><h3>And <span class="y">rolls off.</span></h3><p>Dirt goes with it. Washing takes minutes, not hours.</p></div>
+    <div class="bar"></div></div>
+</section>
+
+<!-- 4 -->
+<section id="i4">
+  <div class="idea-head"><div><span class="num">04</span><h2>Wipe the <span class="y">foam</span></h2></div>
+    <div class="meta"><b>Interaction:</b> move your mouse, or drag a finger, over the car to wash the snow foam off. Clear most of it and it finishes itself.<br><b>Place it:</b> "Deep Detailing". It turns the service into a mini-game.</div></div>
+  <div class="stage wide" id="foam">
+    <img class="fill" data-src="clean" alt="Clean car">
+    <canvas class="fill"></canvas>
+    <div class="sponge"></div>
+    <div class="meter">0% clean</div>
+    <div class="win"><div><h3>Spotless<span class="y">.</span></h3><button type="button">Foam it again</button></div></div>
+    <div class="hint">Wipe the foam off</div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section id="i5">
+  <div class="idea-head"><div><span class="num">05</span><h2>Exploded <span class="y">layers</span></h2></div>
+    <div class="meta"><b>Interaction:</b> scroll. The paint system splits apart in 3D and labels every layer DBI protects.<br><b>Place it:</b> "Why Choose DBI", or under the PPF heading. It explains what the customer is paying for.</div></div>
+</section>
+<section id="layers">
+  <div class="sticky">
+    <div class="copy"><h3>What's between the<br>road and your <span class="y">paint</span>.</h3><p>Scroll to take the finish apart. DBI adds the top two layers: a paint protection film, sealed with a ceramic coating.</p></div>
+    <div class="scene"><div class="stack" id="stack"></div><div id="tags"></div></div>
+  </div>
+</section>
+
+<!-- 6 -->
+<section id="i6">
+  <div class="idea-head"><div><span class="num">06</span><h2>Wrap colour <span class="y">configurator</span></h2></div>
+    <div class="meta"><b>Interaction:</b> tap a swatch. The new wrap sweeps across the car like a squeegee pass.<br><b>Place it:</b> "Vehicle Wrapping", so customers can try colours on a real car.</div></div>
+  <div class="stage wide" id="config">
+    <div class="layer" id="cfgA"><img class="fill" data-src="c-black" alt=""></div>
+    <div class="layer" id="cfgB"><img class="fill" alt=""></div>
+    <div class="sweep"></div>
+    <div class="name"><small>Current wrap</small><b id="cfgName">Matte Black PPF</b></div>
+  </div>
+  <div class="swatches" id="swatches"></div>
+</section>
+
+<!-- 7 -->
+<section id="i7">
+  <div class="idea-head"><div><span class="num">07</span><h2>Inspection <span class="y">lamp</span></h2></div>
+    <div class="meta"><b>Interaction:</b> your cursor becomes a detailer's swirl lamp in a dark studio. Sweep it across the car: the left half is unprotected paint, the right half has DBI PPF.<br><b>Place it:</b> "Deep Detailing" / "Our Expertise".</div></div>
+  <div class="stage wide" id="lamp">
+    <img class="fill dim" data-src="after" alt="">
+    <div class="lit"><img class="fill" data-src="before" alt="" style="clip-path:inset(0 50% 0 0)"><img class="fill" data-src="after" alt="" style="clip-path:inset(0 0 0 50%)"></div>
+    <div class="glow"></div><div class="split"></div>
+    <span class="pill l">Unprotected</span><span class="pill r">DBI PPF</span>
+    <div class="hint">Move the lamp over the car</div>
+  </div>
+</section>
+
+<!-- 8 -->
+<section id="i8">
+  <div class="idea-head"><div><span class="num">08</span><h2>Garage <span class="y">shutter</span></h2></div>
+    <div class="meta"><b>Interaction:</b> scroll. The branded roller shutter rolls up slat by slat, and light spills out onto the car.<br><b>Place it:</b> transition into "Get In Touch", or before the showroom gallery.</div></div>
+</section>
+<section id="shutter">
+  <div class="sticky">
+    <div class="behind"><img class="fill" data-src="bridge" alt=""><div class="cta"><h3>Your car is<br><span class="y">next.</span></h3><a href="#">Book now</a></div></div>
+    <div class="light" id="shLight"></div>
+    <div class="door" id="door"><div class="brand">D<b>B</b>i</div><div class="handle"></div></div>
+    <div class="drum"></div>
+  </div>
+</section>
+
+<!-- 9 -->
+<section id="i9">
+  <div class="idea-head"><div><span class="num">09</span><h2>Kinetic <span class="y">type</span> × cut-out car</h2></div>
+    <div class="meta"><b>Interaction:</b> scroll. Giant words slide in opposite directions behind and in front of the car, and the car drifts forward for depth.<br><b>Place it:</b> between the hero and "Explore Our Services", as a brand statement.</div></div>
+</section>
+<section id="kinetic">
+  <div class="sticky">
+    <div class="row a" data-dir="-1">PROTECT · WRAP · DETAIL · PROTECT · WRAP · DETAIL ·</div>
+    <div class="row b" data-dir="1">MATTE · SATIN · GLOSS · CERAMIC · MATTE · SATIN · GLOSS ·</div>
+    <div class="ground"></div>
+    <div class="car" id="kcar"><img data-src="cutout" alt="Ferrari Purosangue"></div>
+    <div class="row c" data-dir="-1">DBI · AL QUOZ · DUBAI · DBI · AL QUOZ · DUBAI ·</div>
+  </div>
+</section>
+
+<!-- 10 -->
+<section id="i10">
+  <div class="idea-head"><div><span class="num">10</span><h2>Services <span class="y">ride</span></h2></div>
+    <div class="meta"><b>Interaction:</b> scroll down and the service cards glide sideways. Hover a card and it tilts in 3D with a light glare.<br><b>Place it:</b> replaces the static "Explore Our Services" grid.</div></div>
+</section>
+<section id="hscroll" style="height:320vh">
+  <div class="sticky">
+    <div class="title"><h3>Explore our <span class="y">services</span></h3></div>
+    <div class="track" id="track"></div>
+    <div class="progress"><i id="hprog"></i></div>
+  </div>
+</section>
+
+<footer>DBI Motor Wrapping · Al Quoz 3, Dubai · 10 animation concepts. Every car shown is the real Ferrari Purosangue from DBI's photos; wrap colours, foam and close-ups are AI edits of those photos.</footer>
+
+<script type="module" src="fx10.js"></script>
+</body>
+</html>
