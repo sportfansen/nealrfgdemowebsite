@@ -3,10 +3,10 @@
 A smooth drag-to-rotate 360° spinner for the "Ferrari Purosangue In 360°" section, replacing the old laggy frame viewer.
 
 **Live demo (single file, frames embedded):**
-https://d2ol7oe51mr4n9.cloudfront.net/user_32ug71yHbv31sGwpysALKqFqrXu/a57a4b2e-523d-4d5a-925d-aed55d67f710.html
+https://d2ol7oe51mr4n9.cloudfront.net/user_32ug71yHbv31sGwpysALKqFqrXu/08fb08ea-4c83-404e-a5f1-096788889617.html
 
-**Website kit (drop-in folder with frames, 11 MB zip):**
-https://d2ol7oe51mr4n9.cloudfront.net/user_32ug71yHbv31sGwpysALKqFqrXu/8e4f45d2-2783-44ba-be36-5f1026c9b89b.zip
+**Website kit (drop-in folder with frames + 3D model, 13.6 MB zip):**
+https://d2ol7oe51mr4n9.cloudfront.net/user_32ug71yHbv31sGwpysALKqFqrXu/d583f9e6-c681-4780-a04c-f97a67b16832.zip
 
 ## How the footage was made
 
@@ -29,7 +29,7 @@ The customer's four showroom photos went into Higgsfield (Seedance 2.0). The mod
 | `viewer360.js` / `viewer360.css` | The spinner component, no dependencies |
 | `frames/` | `f000.webp`…`f119.webp` + `manifest.json` (in the kit zip) |
 | `tools/build_spin.py` | Turns any turntable video into frames + manifest + `standalone.html` |
-| `model-viewer.js`, `vendor/` | Optional three.js 3D-model tab, shown only if `manifest.json` has a `"model"` URL |
+| `model-viewer.js`, `vendor/`, `model/purosangue.glb` | Bonus 3D-model tab (three.js). Shown only if `manifest.json` has a `"model"` URL |
 
 ## Using it on the site
 
@@ -44,3 +44,7 @@ The customer's four showroom photos went into Higgsfield (Seedance 2.0). The mod
 ```
 
 To swap in a new car: `python3 tools/build_spin.py new-car.mp4 --frames 120` (this needs ffmpeg and Pillow).
+
+## The 3D model tab (bonus)
+
+Higgsfield's Multi-Image-to-3D (Meshy) turned three of the photos into a textured 3D mesh. The 18.4 MB raw GLB was optimized to 2.75 MB (meshopt + WebP textures). It's recognizable from every angle, with the yellow calipers, shield, taillights and quad exhausts. It's still a generated approximation, though, with some surface artifacts, and the scan came out glossy, so the viewer pushes the material toward satin. The 360° spin is the photoreal hero; the 3D tab is a "play with it" extra. Remove `"model"` from `frames/manifest.json` to hide it.

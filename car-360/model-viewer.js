@@ -4,6 +4,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
 
 export function mountModel(root, url, { onProgress, onReady } = {}) {
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, preserveDrawingBuffer: true });
@@ -42,9 +43,15 @@ export function mountModel(root, url, { onProgress, onReady } = {}) {
   scene.add(key);
   scene.add(new THREE.HemisphereLight(0xffffff, 0x8a8a8a, 0.6));
 
-  new GLTFLoader().load(url, gltf => {
+  new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).load(url, gltf => {
     const car = gltf.scene;
-    car.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
+    car.traverse(o => {
+      if (!o.isMesh) return;
+      o.castShadow = true; o.receiveShadow = true;
+      // the scan comes out glossy; push it toward the satin look of matte PPF
+      const m = o.material;
+      if (m && 'roughness' in m) { m.roughness = Math.max(m.roughness ?? 0.5, 0.58); m.metalness = Math.min(m.metalness ?? 0, 0.25); m.envMapIntensity = 0.8; }
+    });
     // normalise: ~4.9 m long like the real Purosangue, wheels on the floor, centred
     const box = new THREE.Box3().setFromObject(car), size = box.getSize(new THREE.Vector3());
     const s = 4.9 / Math.max(size.x, size.z);

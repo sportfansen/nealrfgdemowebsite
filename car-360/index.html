@@ -90,7 +90,7 @@
     document.getElementById('model').hidden = b.dataset.tab !== 'model';
     if (b.dataset.tab === 'model' && !modelMounted) {
       modelMounted = true;
-      const { mountModel } = await import('./model-viewer.js');
+      const mountModel = window.__mountModel || (await import('./model-viewer.js')).mountModel;
       mountModel(document.getElementById('model'), manifest.model);
     }
   }));

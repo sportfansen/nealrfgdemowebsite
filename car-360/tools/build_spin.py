@@ -86,8 +86,15 @@ def main():
     inline = dict(manifest)
     inline['frames'] = ['data:image/webp;base64,' + base64.b64encode(open(os.path.join(out_dir, n), 'rb').read()).decode()
                         for n in names]
-    inline.pop('model', None)  # the standalone page is spin-only
     html = html.replace("import { Viewer360 } from './viewer360.js';", js)
+    if args.model:
+        # 3D tab in the single-file page: three.js from a CDN, viewer code inlined
+        three = 'https://cdn.jsdelivr.net/npm/three@0.186.1/'
+        imap = json.dumps({'imports': {'three': three + 'build/three.module.js', 'three/addons/': three + 'examples/jsm/'}})
+        mv = open(os.path.join(HERE, 'model-viewer.js')).read().replace('export function mountModel', 'function mountModel')
+        html = html.replace('</head>', f'<script type="importmap">{imap}</script>\n<script type="module">{mv}\nwindow.__mountModel = mountModel;</script>\n</head>')
+    else:
+        inline.pop('model', None)
     html = html.replace('<script type="module">', '<script>window.SPIN_MANIFEST=' + json.dumps(inline) + ';</script>\n<script type="module">', 1)
     open(os.path.join(HERE, 'standalone.html'), 'w').write(html)
     print('standalone.html', round(os.path.getsize(os.path.join(HERE, 'standalone.html')) / 1e6, 1), 'MB')
