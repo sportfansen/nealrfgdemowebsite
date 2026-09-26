@@ -1,11 +1,11 @@
 # DBI scroll effects
 
-**Live demo (v2):** https://d2ol7oe51mr4n9.cloudfront.net/user_32ug71yHbv31sGwpysALKqFqrXu/601e9f70-9447-4147-9f55-f2c7fc6eca74.html
+**Live demo (v3):** https://d2ol7oe51mr4n9.cloudfront.net/user_32ug71yHbv31sGwpysALKqFqrXu/806410b6-eaa6-44a2-adca-803eaa09323a.html
 (The intro plays on every visit. Add `?nointro` to skip it while testing.)
 
 | # | Effect | Where on the site | Type |
 |---|---|---|---|
-| 1 | **Lights On**: the DBI studio light-box flickers on, the logo lights up, then the frame flies into the hero image slot | Page load, before the hero | ~4.5 s video, plays on every visit, skippable. The first frame is inlined as a poster so it shows on the very first paint |
+| 1 | **Lights On**: the DBI studio light-box flickers on, the logo lights up, then the frame flies into the hero image slot | Page load, before the hero | 1.3 s speed-ramped video + 0.7 s handoff, plays on every visit, skippable. The first frame is inlined as a poster so it shows on the very first paint |
 | 2 | **The Wrap**: the camera holds on the car's side as scrolling sweeps it from gloss to matte PPF | Right before "Full Body Matte PPF" | Scroll-scrubbed, 96 frames |
 | 3 | **The Drive-In**: the Ferrari drives toward the viewer across Meydan Bridge at sunset (glowing blue wave arches, Burj Khalifa behind), shot at an angle, and stops in front of them | Right before "Our Cars From Every Angle" (the 360° spinner) | Scroll-scrubbed, 120 frames |
 
