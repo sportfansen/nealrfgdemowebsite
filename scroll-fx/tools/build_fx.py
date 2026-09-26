@@ -62,15 +62,19 @@ def sequence(video, name, count, width, quality, trim_start=0.0, trim_end=0.0):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--intro'); ap.add_argument('--wrap'); ap.add_argument('--drive')
-    ap.add_argument('--width', type=int, default=1600)
-    ap.add_argument('--quality', type=int, default=78)
+    ap.add_argument('--intro-start', type=float, default=0.45)
+    ap.add_argument('--width', type=int, default=1280)
+    ap.add_argument('--quality', type=int, default=74)
     args = ap.parse_args()
     os.makedirs(OUT, exist_ok=True)
     counts = {}
     if args.intro:
-        ff('-i', args.intro, '-an', '-vf', 'scale=1600:-2:flags=lanczos', '-c:v', 'libx264', '-preset', 'slow', '-crf', '21',
+        # skip the pitch-black lead-in so the intro opens on the first flicker of light
+        ff('-ss', str(args.intro_start), '-i', args.intro, '-an', '-vf', 'scale=1600:-2:flags=lanczos', '-c:v', 'libx264', '-preset', 'slow', '-crf', '21',
            '-pix_fmt', 'yuv420p', '-movflags', '+faststart', os.path.join(OUT, 'intro.mp4'))
         ff('-sseof', '-0.1', '-i', args.intro, '-frames:v', '1', '-q:v', '2', '-vf', 'scale=1600:-2', os.path.join(OUT, 'intro-last.jpg'))
+        # tiny first-frame poster, inlined into the page so something shows on the very first paint
+        ff('-i', os.path.join(OUT, 'intro.mp4'), '-frames:v', '1', '-q:v', '5', '-vf', 'scale=960:-2', os.path.join(OUT, 'intro-first.jpg'))
         print('intro.mp4', round(os.path.getsize(os.path.join(OUT, 'intro.mp4')) / 1e6, 2), 'MB')
     if args.wrap:
         counts['wrapCount'] = sequence(args.wrap, 'wrap', 96, args.width, args.quality)

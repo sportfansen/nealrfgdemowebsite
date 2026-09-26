@@ -40,7 +40,7 @@
   @media (max-width:900px){.hero{grid-template-columns:1fr}.hero::after{top:auto;height:35%;width:100%}.hero-media{margin:0 16px 40px}}
 
   /* ---------- intro overlay ---------- */
-  #intro{position:fixed;inset:0;z-index:100;background:#000;display:none}
+  #intro{position:fixed;inset:0;z-index:100;background:#000}
   #intro video{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;transform-origin:0 0}
   #intro .skip{position:absolute;right:22px;bottom:22px;z-index:2;background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25);
     font:500 13px Poppins;padding:9px 16px;border-radius:999px;cursor:pointer;backdrop-filter:blur(6px)}
@@ -73,7 +73,7 @@
 
 <!-- ================= 1. OPENING: "Lights On" ================= -->
 <div id="intro" aria-hidden="true">
-  <video id="introVideo" muted playsinline preload="auto"></video>
+  <video id="introVideo" muted autoplay playsinline preload="auto"></video>
   <button class="skip" id="skipIntro">Skip intro</button>
   <div class="bar" id="introBar"></div>
 </div>
@@ -154,7 +154,6 @@ const finishIntro = (() => {
   let done = false;
   return async () => {
     if (done) return; done = true;
-    try { sessionStorage.setItem('dbiIntroSeen', '1'); } catch {}
     const r = document.getElementById('heroMedia').getBoundingClientRect();
     // shrink the full-screen video into the hero image box, then fade out.
     // Animating the box (not a scale transform) keeps object-fit:cover, so the car never stretches.
@@ -170,13 +169,15 @@ const finishIntro = (() => {
     intro.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 250, fill: 'forwards' }).finished.then(() => intro.remove());
   };
 })();
-let seen = false; try { seen = sessionStorage.getItem('dbiIntroSeen'); } catch {}
-if (seen || matchMedia('(prefers-reduced-motion: reduce)').matches || new URLSearchParams(location.search).has('nointro')) {
+// Plays on every visit. The overlay is in the HTML from the first paint (no flash of the page),
+// the <video> already has its src + a first-frame poster in the markup so it starts
+// downloading while the page is still parsing.
+if (matchMedia('(prefers-reduced-motion: reduce)').matches || new URLSearchParams(location.search).has('nointro')) {
   intro.remove(); document.body.classList.remove('intro-lock'); document.body.classList.add('ready');
 } else {
-  intro.style.display = 'block';
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
   scrollTo(0, 0);
-  v.src = FX.intro;
+  if (!v.getAttribute('src')) v.src = FX.intro;
   v.addEventListener('timeupdate', () => { document.getElementById('introBar').style.width = (v.currentTime / (v.duration || 1) * 100) + '%'; });
   v.addEventListener('ended', finishIntro);
   document.getElementById('skipIntro').addEventListener('click', finishIntro);
