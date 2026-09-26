@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ferrari Purosangue in 360° | DBI Motor Wrapping</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="viewer360.css">
+<script type="importmap">{"imports":{"three":"./vendor/three.module.js","three/addons/":"./vendor/jsm/"}}</script>
+<style>
+  :root{--yellow:#f2c94c;--ink:#111;--muted:#333}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Poppins,system-ui,sans-serif;color:var(--ink);background:#fff}
+  .showcase{position:relative;padding:80px 0;overflow:hidden}
+  .showcase::after{content:"";position:absolute;top:0;bottom:0;right:0;width:28%;background:var(--yellow);z-index:0}
+  .wrap{position:relative;z-index:1;max-width:1480px;margin:0 auto;padding:0 48px;display:grid;
+    grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:64px;align-items:center}
+  h2{font-family:Oswald,Impact,sans-serif;font-weight:600;font-size:clamp(44px,5.4vw,84px);line-height:1;letter-spacing:-.01em}
+  h2 span{color:var(--yellow)}
+  p.lead{margin-top:22px;font-size:19px;line-height:1.6;color:var(--muted);max-width:560px}
+  ul{list-style:none;margin:28px 0 36px;display:grid;gap:16px}
+  li{display:flex;align-items:center;gap:16px;font-size:19px}
+  li::before{content:"";width:18px;height:18px;border-radius:4px;background:var(--yellow);flex:none}
+  .cta{display:inline-block;background:var(--yellow);color:#fff;text-decoration:none;font-weight:500;font-size:18px;padding:16px 34px}
+  .stage{position:relative}
+  .tabs[hidden]{display:none}
+  .tabs{display:inline-flex;gap:4px;padding:4px;border-radius:999px;background:#f1f1f1;margin-bottom:14px}
+  .tabs button{border:0;background:transparent;font:500 15px Poppins,system-ui,sans-serif;padding:10px 20px;border-radius:999px;cursor:pointer;color:#555}
+  .tabs button[aria-selected=true]{background:#111;color:#fff}
+  .view{position:relative;aspect-ratio:16/10;border-radius:14px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.25);background:#d4d2cf}
+  .view > div{position:absolute;inset:0}
+  .view > div[hidden]{display:none}
+  .badge{position:absolute;left:16px;top:16px;z-index:2;padding:8px 14px;border-radius:999px;background:rgba(17,17,17,.72);
+    color:#fff;font-size:13px;backdrop-filter:blur(8px)}
+  .note{margin-top:12px;font-size:13px;color:#777}
+  @media (max-width:900px){
+    .showcase::after{top:auto;height:38%;width:100%}
+    .wrap{grid-template-columns:1fr;padding:0 16px;gap:40px}
+  }
+</style>
+</head>
+<body>
+<section class="showcase">
+  <div class="wrap">
+    <div>
+      <h2>Ferrari Purosangue <span>In 360°</span></h2>
+      <p class="lead">Drag the car left or right to turn it around, or let it spin on its own. This matte black Ferrari Purosangue was done at DBI Motor Wrapping in Al Quoz 3, Dubai. Here is what the team did on it:</p>
+      <ul>
+        <li>Full body matte PPF</li>
+        <li>Interior and exterior deep detailing</li>
+        <li>Windshield protection</li>
+        <li>Interior ceramic coating</li>
+        <li>Rims ceramic coating</li>
+      </ul>
+      <a class="cta" href="#book">Book The Same For Your Car</a>
+    </div>
+    <div class="stage">
+      <div class="tabs" role="tablist">
+        <button role="tab" aria-selected="true" data-tab="spin">360° Spin</button>
+        <button role="tab" aria-selected="false" data-tab="model">3D Model</button>
+      </div>
+      <div class="view">
+        <div id="spin"></div>
+        <div id="model" hidden><span class="badge">Drag to orbit · scroll to zoom</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script type="module">
+  import { Viewer360 } from './viewer360.js';
+  const manifest = window.SPIN_MANIFEST || await (await fetch('frames/manifest.json')).json();
+  const base = manifest.base ?? 'frames/';
+  new Viewer360(document.getElementById('spin'), {
+    frames: manifest.frames.map(f => f.startsWith('data:') ? f : base + f),
+    autoSpeed: manifest.autoSpeed ?? 20,
+    pxPerFrame: manifest.pxPerFrame ?? 6,
+    reverse: !!manifest.reverse,
+  });
+
+  // The 3D tab only shows when a model is configured; it downloads on first open.
+  const tabs = document.querySelector('.tabs');
+  if (!manifest.model) tabs.hidden = true;
+  let modelMounted = false;
+  tabs.querySelectorAll('button').forEach(b => b.addEventListener('click', async () => {
+    tabs.querySelectorAll('button').forEach(x => x.setAttribute('aria-selected', x === b));
+    document.getElementById('spin').hidden = b.dataset.tab !== 'spin';
+    document.getElementById('model').hidden = b.dataset.tab !== 'model';
+    if (b.dataset.tab === 'model' && !modelMounted) {
+      modelMounted = true;
+      const { mountModel } = await import('./model-viewer.js');
+      mountModel(document.getElementById('model'), manifest.model);
+    }
+  }));
+</script>
+</body>
+</html>
