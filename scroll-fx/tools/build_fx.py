@@ -29,7 +29,19 @@ def sequence(video, name, count, width, quality, trim_start=0.0, trim_end=0.0):
     a = int(len(all_frames) * trim_start)
     b = len(all_frames) - int(len(all_frames) * trim_end)
     src = all_frames[a:b]
-    pick = [src[round(i * (len(src) - 1) / (count - 1))] for i in range(count)]
+    # Space frames by visual change, not time: AI footage often idles then rushes,
+    # and a scroll animation should move the same amount for every bit of scrolling.
+    small = [Image.open(f).convert('L').resize((96, 54)) for f in src]
+    dist = [0.0]
+    for x, y in zip(small, small[1:]):
+        d = sum(abs(p - q) for p, q in zip(x.getdata(), y.getdata())) / (96 * 54)
+        dist.append(dist[-1] + d + 0.15)   # small floor keeps near-static stretches from collapsing
+    pick, j = [], 0
+    for i in range(count):
+        target = dist[-1] * i / (count - 1)
+        while j < len(dist) - 1 and dist[j + 1] <= target:
+            j += 1
+        pick.append(src[j])
     # keyframes first (every 8th), then the rest, so scrubbing works before the download finishes
     order = list(range(0, count, 8)) + [i for i in range(count) if i % 8]
     zpath = os.path.join(OUT, f'{name}.zip')
