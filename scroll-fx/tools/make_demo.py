@@ -19,7 +19,7 @@ js = open(os.path.join(HERE, 'scrub.js')).read().replace('export class', 'class'
 html = html.replace("import { ScrollScrub, loadZipSequence } from './scrub.js';", js)
 html = html.replace('<script type="module">', '<script>window.FX=' + json.dumps(fx) + ';</script>\n<script type="module">', 1)
 poster = 'data:image/jpeg;base64,' + base64.b64encode(open(os.path.join(HERE, 'assets', 'intro-first.jpg'), 'rb').read()).decode()
-html = html.replace('<video id="introVideo" muted autoplay playsinline preload="auto"></video>',
-                    f'<video id="introVideo" muted autoplay playsinline preload="auto" src="{fx["intro"]}" poster="{poster}"></video>')
+html = html.replace('<video id="introVideo" muted playsinline preload="auto"></video>',
+                    f'<video id="introVideo" muted playsinline preload="auto" src="{fx["intro"]}" poster="{poster}"></video>')
 html = html.replace('<head>', f'<head>\n<link rel="preload" as="video" href="{fx["intro"]}" type="video/mp4">', 1)
 sys.stdout.write(html)
