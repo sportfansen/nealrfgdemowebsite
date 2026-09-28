@@ -1,0 +1,82 @@
+/* DBI Digital Garage: shared pieces for all three styles.
+   Each style sets the theme tokens below on :root and adds its own layout. */
+:root{
+  --black:#0E0F11; --wall:#7C7A78; --tile:#C9CACB; --light:#F4F6F7;
+  --gold:#E7B52A; --gold-hi:#FFE27A; --gold-lo:#B8860B;
+  --gold-grad:linear-gradient(100deg,#FFE27A 0%,#E7B52A 38%,#B8860B 62%,#F2C94C 100%);
+  --wa:#25D366;
+  --gate-z:2147483000;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0}
+img,video{max-width:100%;display:block}
+a{color:inherit}
+.gold-text{background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- 1. garage shutter ---------- */
+html.gate-lock,html.gate-lock body{overflow:hidden}
+#gate{position:fixed;inset:0;z-index:var(--gate-z);overflow:hidden;cursor:pointer;touch-action:none}
+#gate .door{position:absolute;inset:0;background:#15161a;will-change:transform}
+#gate .door img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;-webkit-user-drag:none;user-select:none}
+#gate .spill{position:absolute;left:-10%;right:-10%;top:100%;height:45vh;pointer-events:none;opacity:0;
+  background:radial-gradient(60% 100% at 50% 0%,rgba(244,246,247,.75),rgba(244,246,247,.15) 45%,transparent 75%)}
+#gate .drum{position:absolute;left:0;right:0;top:0;height:9vh;opacity:0;pointer-events:none;background:linear-gradient(#000,rgba(0,0,0,.6) 60%,transparent)}
+#gate .hint{position:absolute;left:50%;bottom:calc(28px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);display:flex;align-items:center;gap:10px;
+  background:rgba(10,10,10,.55);color:#fff;border:1px solid rgba(255,255,255,.22);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  font:600 12px/1 system-ui,sans-serif;letter-spacing:.16em;text-transform:uppercase;padding:12px 18px;border-radius:999px;white-space:nowrap;overflow:hidden}
+#gate .hint svg{width:16px;height:16px;animation:gNudge 1.1s ease-in-out infinite}
+#gate .hint i{position:absolute;left:0;bottom:0;height:2px;background:var(--gold);width:0}
+@keyframes gNudge{50%{transform:translateY(-4px)}}
+
+/* ---------- 2. lights on ---------- */
+#lights{position:fixed;inset:0;z-index:calc(var(--gate-z) - 1);background:#000}
+#lights video{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover}
+#lights .skip{position:absolute;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:2;background:rgba(0,0,0,.4);color:#fff;
+  border:1px solid rgba(255,255,255,.3);font:600 11px/1 system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;padding:10px 14px;border-radius:999px;cursor:pointer}
+
+/* ---------- WhatsApp button ---------- */
+.wa-fab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:900;display:flex;align-items:center;gap:10px;
+  background:var(--wa);color:#fff;text-decoration:none;font:700 14px/1 system-ui,sans-serif;padding:14px 18px 14px 14px;border-radius:999px;
+  box-shadow:0 10px 30px rgba(0,0,0,.35);transition:transform .2s}
+.wa-fab:hover{transform:translateY(-2px)}
+.wa-fab svg{width:24px;height:24px;flex:none}
+@media (max-width:520px){.wa-fab span{display:none}.wa-fab{padding:14px}}
+
+/* ---------- Instagram-style highlight circles ---------- */
+.stories{display:flex;gap:18px;overflow-x:auto;scrollbar-width:none;padding:4px 2px}
+.stories::-webkit-scrollbar{display:none}
+.story{flex:none;display:flex;flex-direction:column;align-items:center;gap:8px;text-decoration:none;width:74px}
+.story .ring{width:68px;height:68px;border-radius:50%;padding:3px;background:var(--gold-grad)}
+.story .ring span{display:grid;place-items:center;width:100%;height:100%;border-radius:50%;background:var(--black);border:2px solid var(--black)}
+.story svg{width:32px;height:32px;stroke:var(--gold);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.story b{font:600 11px/1.1 system-ui,sans-serif;letter-spacing:.04em;text-align:center}
+
+/* ---------- the showroom stage (car cut-outs on a lit tile floor) ---------- */
+.stage{--wall-top:#5d5b59;--wall-bot:#8b8986;--floor:#b9babb;position:relative;overflow:hidden;aspect-ratio:16/9;max-height:78vh;width:100%;
+  background:linear-gradient(var(--wall-top),var(--wall-bot) 62%,var(--floor) 62%)}
+.stage .lightbox{position:absolute;left:14%;right:14%;top:0;height:14%;background:#101114;border-radius:0 0 4px 4px}
+.stage .lightbox::after{content:"";position:absolute;left:2%;right:2%;bottom:-38%;height:38%;background:var(--light);
+  clip-path:polygon(0 0,100% 0,96% 100%,4% 100%);box-shadow:0 0 60px 20px rgba(244,246,247,.55)}
+.stage .glow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(55% 45% at 50% 18%,rgba(255,255,255,.38),transparent 70%)}
+.stage .floor{position:absolute;left:-50%;right:-50%;top:62%;bottom:-40%;transform-origin:50% 0;transform:perspective(600px) rotateX(58deg);
+  background:
+    linear-gradient(rgba(0,0,0,.0),rgba(0,0,0,.25)),
+    repeating-linear-gradient(90deg,transparent 0 158px,rgba(0,0,0,.22) 158px 160px),
+    repeating-linear-gradient(0deg,transparent 0 158px,rgba(0,0,0,.22) 158px 160px),
+    linear-gradient(#c9cacb,#a9aaab)}
+.stage .drain{position:absolute;left:0;right:0;top:86%;height:6px;background:repeating-linear-gradient(90deg,#1b1c1e 0 5px,#3a3b3d 5px 7px);opacity:.85}
+.stage .car{position:absolute;left:4%;right:4%;bottom:8%;height:72%;display:grid;place-items:end center}
+.stage .car img{max-height:100%;width:auto;object-fit:contain;filter:drop-shadow(0 26px 18px rgba(0,0,0,.45));transition:opacity .35s}
+.stage .car img.swap{opacity:0}
+.stage .logo-wall{position:absolute;right:7%;top:24%;width:16%;opacity:.95}
+
+/* ---------- reveal on scroll (content is visible without JS) ---------- */
+html.js .rv{opacity:0;transform:translateY(24px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+html.js .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  html.js .rv{opacity:1;transform:none;transition:none}
+  #gate,#lights{display:none}
+}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}

@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en" data-media="../media/">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>DBI Motor Wrapping | Car Wrapping &amp; PPF in Dubai</title>
+<meta name="description" content="Car wrapping, full body matte PPF, windshield protection, ceramic coating and deep detailing at DBI Motor Wrapping, Al Quoz 3, Dubai. Rated 5.0 on Google.">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="../media/favicon-192x192.png">
+<meta property="og:image" content="../media/og-dbi.jpg">
+<link rel="preload" as="image" href="../media/shutter-wide.webp" media="(orientation: landscape)">
+<link rel="preload" as="image" href="../media/shutter-tall.webp" media="(orientation: portrait)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,800;1,800;1,900&family=Barlow:wght@400;500;600&family=Cairo:wght@600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../core/garage.css">
+<style>
+  /* Launch Night: the @dbiwrap Instagram look. Black, metallic gold, heavy italic poster type, Arabic alongside English. */
+  :root{--bg:#000;--card:#101113;--line:rgba(255,255,255,.12);--text:#fff;--muted:#a3a5a8;
+    --poster:"Barlow Condensed","Arial Narrow",Impact,sans-serif;--body:Barlow,system-ui,sans-serif;--ar:Cairo,"Noto Kufi Arabic",Tahoma,sans-serif;
+    --pad:clamp(16px,4.5vw,64px);color-scheme:dark}
+  body{background:var(--bg);color:var(--text);font:400 16px/1.6 var(--body)}
+  h1,h2,h3{margin:0;font-family:var(--poster);font-weight:900;font-style:italic;text-transform:uppercase;line-height:.86;letter-spacing:-.01em;text-wrap:balance}
+  p{margin:0}
+  .ar{font-family:var(--ar);font-weight:800;font-style:normal;letter-spacing:0;text-transform:none;direction:rtl;unicode-bidi:isolate}
+  .wrap{padding-inline:var(--pad)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:600 15px/1 var(--body);text-decoration:none;padding:14px 20px;border-radius:10px;transition:filter .2s,transform .2s}
+  .btn:hover{filter:brightness(1.1);transform:translateY(-1px)}
+  .btn-gold{background:var(--gold-grad);color:#111}
+  .btn-dark{background:#1f2024;color:#fff}
+  .slash{display:inline-block;background:var(--gold-grad);color:#111;padding:6px 14px 5px;transform:skewX(-12deg);font:800 13px/1 var(--poster);letter-spacing:.14em;text-transform:uppercase}
+  .slash > span{display:inline-block;transform:skewX(12deg)}
+
+  /* profile header, like the @dbiwrap page */
+  .profile{max-width:980px;margin:0 auto;padding:calc(28px + env(safe-area-inset-top,0px)) var(--pad) 18px;display:grid;grid-template-columns:auto 1fr;gap:18px 40px;align-items:center}
+  .avatar{width:clamp(96px,17vw,160px);aspect-ratio:1;border-radius:50%;padding:4px;background:var(--gold-grad)}
+  .avatar span{display:grid;place-items:center;width:100%;height:100%;border-radius:50%;background:#000;border:3px solid #000}
+  .avatar img{width:78%;height:auto}
+  .p-main{display:grid;gap:12px}
+  .p-name{font:600 22px/1.2 var(--body)}
+  .p-stats{display:flex;gap:28px}
+  .p-stats b{display:block;font:800 22px/1.1 var(--poster)}
+  .p-stats span{font-size:14px;color:var(--muted)}
+  .p-bio{grid-column:1/-1;display:grid;gap:2px;font-size:15px}
+  .p-bio .cat{color:var(--muted)}
+  .p-bio a{color:#8fb4ff;text-decoration:none}
+  .p-btns{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+  .p-btns .btn{padding:12px 10px;font-size:14px}
+  .profile .stories{grid-column:1/-1;gap:22px;padding-top:8px}
+  .profile .story{width:84px}
+  .profile .story .ring{width:78px;height:78px}
+  @media (max-width:640px){.profile{gap:14px 18px}.p-stats{gap:16px}.p-stats b{font-size:19px}}
+
+  /* poster hero */
+  .hero{position:relative;min-height:92svh;display:grid;align-items:end;overflow:hidden;border-block:1px solid var(--line)}
+  .hero video{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover}
+  .hero::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(0,0,0,.3),rgba(0,0,0,.1) 40%,rgba(0,0,0,.85))}
+  .hero-in{position:relative;z-index:2;padding:0 var(--pad) clamp(28px,6vh,64px);display:grid;gap:16px}
+  .hero h1{font-size:clamp(76px,15vw,250px);line-height:.8}
+  .hero h1 em{font-style:inherit;display:block}
+  .hero .ar-line{font-size:clamp(28px,4.2vw,58px);line-height:1.3}
+  .hero .row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+  .hero .row p{max-width:520px;color:#e2e3e5}
+
+  /* ticker */
+  .tk{overflow:hidden;padding-block:26px}
+  .ticker{overflow:hidden;background:var(--gold-grad);color:#0b0b0b;border-block:2px solid #000;transform:rotate(-1.2deg);margin:0 -10px}
+  .ticker div{display:flex;width:max-content;animation:tick 26s linear infinite}
+  .ticker span{font:900 italic clamp(22px,3vw,40px)/1 var(--poster);text-transform:uppercase;padding:14px 22px;white-space:nowrap}
+  .ticker span::after{content:"✦";margin-left:44px;font-style:normal}
+  @keyframes tick{to{transform:translateX(-50%)}}
+  @media (prefers-reduced-motion:reduce){.ticker div{animation:none}}
+
+  /* heads */
+  .head{display:grid;gap:12px;padding-block:clamp(64px,9vw,120px) clamp(24px,3vw,40px)}
+  .head h2{font-size:clamp(54px,8vw,128px)}
+  .head .ar{font-size:clamp(22px,2.6vw,34px);color:var(--gold)}
+  .head p{color:var(--muted);max-width:56ch}
+
+  /* service posts */
+  .posts{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+  .post{position:relative;aspect-ratio:4/5;overflow:hidden;text-decoration:none;color:#fff;background:#111;display:block}
+  .post img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .7s}
+  .post:hover img{transform:scale(1.05)}
+  .post::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(0,0,0,.05) 30%,rgba(0,0,0,.9))}
+  .post .in{position:absolute;inset:auto 0 0 0;z-index:2;padding:22px;display:grid;gap:10px}
+  .post h3{font-size:clamp(40px,4.2vw,64px)}
+  .post .ar{font-size:18px;color:var(--gold-hi)}
+  .post .go{font:600 13px/1 var(--body);color:#fff;opacity:.85}
+  .post .top{position:absolute;left:14px;top:14px;z-index:2}
+  @media (max-width:900px){.posts{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:560px){.posts{grid-template-columns:1fr}.post{aspect-ratio:5/6}}
+
+  /* reel */
+  .reel{display:grid;grid-template-columns:auto 1fr;gap:clamp(24px,5vw,80px);align-items:center}
+  .phone{width:min(340px,78vw);aspect-ratio:9/19;border-radius:44px;padding:12px;background:linear-gradient(145deg,#2b2c30,#0c0c0e);box-shadow:0 0 0 1px #3a3b3f,0 40px 90px rgba(231,181,42,.18)}
+  .phone div{width:100%;height:100%;border-radius:34px;overflow:hidden;background:#000;position:relative}
+  .phone video{width:100%;height:100%;object-fit:cover}
+  .phone .cap{position:absolute;left:14px;right:14px;bottom:18px;font:900 italic 30px/1 var(--poster);text-transform:uppercase;text-align:center;
+    background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 2px 8px rgba(0,0,0,.8))}
+  .reel ol{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+  .reel li{display:grid;grid-template-columns:56px 1fr;gap:16px;align-items:start;padding:14px 0;border-bottom:1px solid var(--line)}
+  .reel li b{font:900 italic 40px/1 var(--poster);background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .reel li h3{font-size:30px;font-style:italic;margin-bottom:4px}
+  .reel li p{color:var(--muted);font-size:15px}
+  @media (max-width:860px){.reel{grid-template-columns:1fr}.phone{justify-self:center}}
+
+  /* garage */
+  .garage{border-block:1px solid var(--line)}
+  .garage .stage{--wall-top:#1a1b1e;--wall-bot:#2a2b2f;--floor:#3a3b3e;max-height:none}
+  .garage .stage .floor{background:repeating-linear-gradient(90deg,transparent 0 158px,rgba(0,0,0,.4) 158px 160px),repeating-linear-gradient(0deg,transparent 0 158px,rgba(0,0,0,.4) 158px 160px),linear-gradient(#55565a,#26272a)}
+  .garage-ui{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding:18px var(--pad)}
+  .tabs{display:flex;flex-wrap:wrap;gap:8px}
+  .tabs button{font:800 italic 18px/1 var(--poster);text-transform:uppercase;letter-spacing:.02em;color:#fff;background:#1a1b1e;border:0;padding:12px 16px;border-radius:10px;cursor:pointer}
+  .tabs button[aria-pressed="true"]{background:var(--gold-grad);color:#111}
+  [data-angle-label]{color:var(--muted);font-size:14px}
+  .arrows{display:flex;gap:8px}
+  .arrows button{width:48px;height:48px;border-radius:50%;border:0;background:#1a1b1e;color:#fff;display:grid;place-items:center;cursor:pointer}
+  .arrows svg{width:20px;height:20px}
+
+  /* steps */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+  .steps > div{background:var(--card);padding:30px 26px;display:grid;gap:12px;align-content:start;position:relative;overflow:hidden}
+  .steps .n{font:900 italic 130px/.8 var(--poster);position:absolute;right:-8px;top:-6px;color:transparent;-webkit-text-stroke:1.5px rgba(231,181,42,.45)}
+  .steps h3{font-size:34px;position:relative}
+  .steps .ar{font-size:18px;color:var(--gold-hi);position:relative}
+  .steps p{color:var(--muted);position:relative;font-size:15px}
+  @media (max-width:860px){.steps{grid-template-columns:1fr}}
+
+  /* trust */
+  .trust{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:6px}
+  .trust > div{background:var(--card);padding:26px;display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center}
+  .trust svg{width:46px;height:46px;stroke:var(--gold);fill:none;stroke-width:1.4;padding:10px;border:2px solid var(--gold);border-radius:50%;box-sizing:content-box}
+  .trust b{font:800 italic 24px/1.05 var(--poster);text-transform:uppercase;display:block}
+  .trust span{color:var(--muted);font-size:14px}
+  @media (max-width:860px){.trust{grid-template-columns:1fr}}
+
+  /* grid */
+  .ig{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;max-width:980px;margin:0 auto}
+  .ig a{aspect-ratio:1;overflow:hidden;display:block}
+  .ig img{width:100%;height:100%;object-fit:cover}
+  .ig a:nth-child(n+13){display:none}
+
+  /* visit */
+  .visit{display:grid;grid-template-columns:1fr 1.2fr;gap:6px;margin-bottom:clamp(64px,9vw,120px)}
+  .visit .info{background:var(--card);padding:clamp(24px,4vw,44px);display:grid;gap:18px;align-content:start}
+  .visit h3{font-size:44px}
+  .visit .line{display:grid;gap:2px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+  .visit .line small{color:var(--gold);font:600 12px/1.4 var(--body);letter-spacing:.14em;text-transform:uppercase}
+  .visit a{text-decoration:none}
+  .visit iframe{width:100%;height:100%;min-height:420px;border:0;filter:grayscale(1) invert(.9) contrast(.95)}
+  @media (max-width:860px){.visit{grid-template-columns:1fr}.visit iframe{min-height:300px}}
+
+  footer{border-top:1px solid var(--line);padding:40px var(--pad) calc(100px + env(safe-area-inset-bottom,0px));display:grid;gap:20px;justify-items:center;text-align:center;color:var(--muted);font-size:14px}
+  footer img{height:40px;width:auto}
+  footer .big{font:900 italic clamp(34px,5vw,64px)/1 var(--poster);text-transform:uppercase}
+  footer nav{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 22px}
+  footer a{text-decoration:none}
+  footer a:hover{color:var(--gold)}
+</style>
+</head>
+<body>
+<script src="../core/garage.js"></script>
+
+<header class="profile" id="home">
+  <div class="avatar"><span><img src="../media/dbi-logo.png" alt="DBI Motor Wrapping" width="1019" height="315"></span></div>
+  <div class="p-main">
+    <div class="p-name">DBI Motor Wrapping</div>
+    <div class="p-stats"><div><b>5.0 ★</b><span>Google</span></div><div><b>21</b><span>reviews</span></div><div><b>6</b><span>services</span></div></div>
+  </div>
+  <div class="p-bio">
+    <span class="cat">Automotive Service</span>
+    <span>Wrap It. Own It. Show It.</span>
+    <span>Al Quoz 3, Dubai · open till 10 PM</span>
+    <a href="https://wa.me/971568555606" target="_blank" rel="noopener">wa.me/971568555606</a>
+  </div>
+  <div class="p-btns">
+    <a class="btn btn-gold" href="https://wa.me/971568555606?text=Hi%20DBI" target="_blank" rel="noopener">Message</a>
+    <a class="btn btn-dark" href="tel:+971568555606">Call</a>
+    <a class="btn btn-dark" href="https://www.instagram.com/dbiwrap/" target="_blank" rel="noopener">Follow</a>
+  </div>
+  <nav class="stories" aria-label="Highlights">
+    <a class="story" href="#garage"><span class="ring"><span><svg viewBox="0 0 24 24"><path d="M3 15l2-5.5A2 2 0 0 1 6.9 8h10.2a2 2 0 0 1 1.9 1.5L21 15v3h-2.2M5.2 18H3v-3M8.8 18h6.4"/><circle cx="7" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/><path d="M12 2.5l.8 1.7 1.7.8-1.7.8-.8 1.7-.8-1.7-1.7-.8 1.7-.8z"/></svg></span></span><b>WORK'S</b></a>
+    <a class="story" href="#services"><span class="ring"><span><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 5-3.4 8.2-7 10-3.6-1.8-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></span></span><b>PPF Wrap</b></a>
+    <a class="story" href="#detailing"><span class="ring"><span><svg viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6.3 6.3l2.5 2.5M15.2 15.2l2.5 2.5M6.3 17.7l2.5-2.5M15.2 8.8l2.5-2.5"/></svg></span></span><b>Detailing</b></a>
+    <a class="story" href="#visit"><span class="ring"><span><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span></span><b>Visit Us</b></a>
+  </nav>
+</header>
+
+<section class="hero">
+  <video data-wide="../media/hero-dbi.mp4" data-tall="../media/hero-dbi-mobile.mp4" poster="../media/hero-dbi.jpg" data-poster-tall="../media/hero-dbi-mobile.jpg" muted loop playsinline preload="metadata"></video>
+  <div class="hero-in">
+    <span class="slash"><span>Car Wrapping &amp; PPF · Dubai</span></span>
+    <h1><em>Wrap it.</em><em>Own it.</em><em class="gold-text">Show it.</em></h1>
+    <p class="ar ar-line gold-text" lang="ar">غلّفها. امتلكها. استعرضها.</p>
+    <div class="row">
+      <p>Vehicle wrapping, full body matte PPF, windshield protection, ceramic coating and deep detailing at our showroom in Al Quoz 3.</p>
+      <a class="btn btn-gold" href="https://wa.me/971568555606?text=Hi%20DBI%2C%20I%27d%20like%20to%20book" target="_blank" rel="noopener">Book on WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<div class="tk" aria-hidden="true"><div class="ticker"><div>
+  <span>Full Body Matte PPF</span><span>Vehicle Wrapping</span><span>Windshield Protection</span><span>Ceramic Coating</span><span>Deep Detailing</span><span>Al Quoz 3 · Dubai</span>
+  <span>Full Body Matte PPF</span><span>Vehicle Wrapping</span><span>Windshield Protection</span><span>Ceramic Coating</span><span>Deep Detailing</span><span>Al Quoz 3 · Dubai</span>
+</div></div></div>
+
+<section class="wrap" id="services">
+  <div class="head rv">
+    <span class="slash"><span>Services</span></span>
+    <h2>Pick your <span class="gold-text">finish.</span></h2>
+    <p class="ar" lang="ar">اختر اللمسة التي تناسب سيارتك</p>
+  </div>
+  <div class="posts">
+    <a class="post rv" href="https://wa.me/971568555606?text=Hi%20DBI%2C%20I%27m%20interested%20in%20Full%20Body%20Matte%20PPF" target="_blank" rel="noopener"><img src="../media/ppf-1.jpg" alt="" loading="lazy"><span class="top slash"><span>PPF</span></span><div class="in"><h3>Full Body<br>Matte PPF</h3><span class="ar" lang="ar">فيلم حماية مطفي لكامل السيارة</span><span class="go">Matte look + chip &amp; scratch guard → Book</span></div></a>
+    <a class="post rv" href="https://wa.me/971568555606?text=Hi%20DBI%2C%20I%27m%20interested%20in%20Vehicle%20Wrapping" target="_blank" rel="noopener"><img src="../media/look-1.jpg" alt="" loading="lazy"><span class="top slash"><span>Wrap</span></span><div class="in"><h3>Vehicle<br>Wrapping</h3><span class="ar" lang="ar">تغليف السيارات</span><span class="go">New colour, paint stays original → Book</span></div></a>
+    <a class="post rv" href="https://wa.me/971568555606?text=Hi%20DBI%2C%20I%27m%20interested%20in%20Windshield%20Protection" target="_blank" rel="noopener"><img src="../media/tint-2.jpg" alt="" loading="lazy"><span class="top slash"><span>Glass</span></span><div class="in"><h3>Windshield<br>Protection</h3><span class="ar" lang="ar">حماية الزجاج الأمامي</span><span class="go">Chip protection, clear view → Book</span></div></a>
+    <a class="post rv" href="https://wa.me/971568555606?text=Hi%20DBI%2C%20I%27m%20interested%20in%20Interior%20Ceramic%20Coating" target="_blank" rel="noopener"><img src="../media/ceramic-1.jpg" alt="" loading="lazy"><span class="top slash"><span>Interior</span></span><div class="in"><h3>Interior<br>Ceramic</h3><span class="ar" lang="ar">سيراميك للمقصورة الداخلية</span><span class="go">Seats, dash &amp; trim, easy to clean → Book</span></div></a>
+    <a class="post rv" href="https://wa.me/971568555606?text=Hi%20DBI%2C%20I%27m%20interested%20in%20Rims%20Ceramic%20Coating" target="_blank" rel="noopener"><img src="../media/ceramic-2.jpg" alt="" loading="lazy"><span class="top slash"><span>Wheels</span></span><div class="in"><h3>Rims<br>Ceramic</h3><span class="ar" lang="ar">سيراميك للجنوط</span><span class="go">Brake dust washes off faster → Book</span></div></a>
+    <a class="post rv" href="#detailing"><img src="../media/expertise-3.jpg" alt="" loading="lazy"><span class="top slash"><span>Detailing</span></span><div class="in"><h3>Deep<br>Detailing</h3><span class="ar" lang="ar">تنظيف وتلميع عميق</span><span class="go">Inside &amp; out → See the process</span></div></a>
+  </div>
+</section>
+
+<section class="wrap" id="detailing">
+  <div class="head rv">
+    <span class="slash"><span>Detailing</span></span>
+    <h2>Back to <span class="gold-text">factory finish.</span></h2>
+    <p class="ar" lang="ar">العودة إلى لمعة المصنع</p>
+  </div>
+  <div class="reel">
+    <div class="phone rv"><div><video data-inview src="../media/detailing-dbi.mp4" poster="../media/detailing-poster.jpg" muted loop playsinline preload="none" aria-label="Machine polishing a Range Rover at DBI"></video><span class="cap">Back to factory finish</span></div></div>
+    <div>
+      <ol>
+        <li class="rv"><b>01</b><div><h3>Machine polishing</h3><p>Panel by panel, to bring back the depth and gloss, like the Range Rover in the reel.</p></div></li>
+        <li class="rv"><b>02</b><div><h3>Engine bay &amp; wheels</h3><p>Engine bay wiped down and dressed; wheels, tyres and arches cleaned.</p></div></li>
+        <li class="rv"><b>03</b><div><h3>Seats &amp; dashboard</h3><p>Seats, dash, door cards and trim cleaned and treated to match the outside.</p></div></li>
+        <li class="rv"><b>04</b><div><h3>Every corner</h3><p>Vents, switches, screens and console gaps done by hand.</p></div></li>
+        <li class="rv"><b>05</b><div><h3>Ready to show</h3><p>Back on the showroom floor under the DBI sign, ready for you.</p></div></li>
+      </ol>
+      <p class="rv" style="margin-top:22px"><a class="btn btn-gold" href="https://wa.me/971568555606?text=Hi%20DBI%2C%20I%27d%20like%20to%20book%20a%20deep%20detailing.%20Car%3A%20" target="_blank" rel="noopener">Book your detailing</a></p>
+    </div>
+  </div>
+</section>
+
+<div class="wrap head rv" id="garage">
+  <span class="slash"><span>The garage</span></span>
+  <h2>Every <span class="gold-text">angle.</span></h2>
+  <p>Three cars from the DBI showroom floor. Pick one and swipe through.</p>
+</div>
+<section class="garage" data-angles='{"p":{"name":"Ferrari Purosangue","shots":["ang-p1.webp","ang-p2.webp","ang-p3.webp","ang-p4.webp"]},"a":{"name":"Lamborghini Aventador Roadster","shots":["ang-a1.webp","ang-a2.webp","ang-a3.webp"]},"c":{"name":"Tesla Cybertruck","shots":["ang-c1.webp","ang-c2.webp","ang-c3.webp"]}}'>
+  <div class="stage"><div class="lightbox"></div><div class="glow"></div><div class="floor"></div><div class="drain"></div><img class="logo-wall" src="../media/dbi-logo.png" alt=""><div class="car"><img src="../media/ang-p1.webp" alt="Ferrari Purosangue" width="1800" height="900"></div></div>
+  <div class="garage-ui">
+    <div class="tabs" role="group" aria-label="Choose a car"><button type="button" data-car="p">Purosangue</button><button type="button" data-car="a">Aventador</button><button type="button" data-car="c">Cybertruck</button></div>
+    <span data-angle-label></span>
+    <div class="arrows">
+      <button type="button" data-step="-1" aria-label="Previous angle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <button type="button" data-step="1" aria-label="Next angle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="head rv">
+    <span class="slash"><span>How to book</span></span>
+    <h2>Three steps. <span class="gold-text">Done.</span></h2>
+    <p class="ar" lang="ar">احجز في ثلاث خطوات</p>
+  </div>
+  <div class="steps">
+    <div class="rv"><span class="n">01</span><h3>Message us on WhatsApp</h3><span class="ar" lang="ar">راسلنا على واتساب</span><p>Send your car model and the service you want. We reply with a price and a time.</p></div>
+    <div class="rv"><span class="n">02</span><h3>Precision application</h3><span class="ar" lang="ar">تركيب بدقة عالية</span><p>Your car comes into the showroom and the work is done panel by panel.</p></div>
+    <div class="rv"><span class="n">03</span><h3>Final inspection</h3><span class="ar" lang="ar">فحص نهائي</span><p>Every panel is checked under the lightbox before you drive out.</p></div>
+  </div>
+  <div class="trust">
+    <div class="rv"><svg viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg><div><b>Rated 5.0 on Google</b><span>From 21 reviews</span></div></div>
+    <div class="rv"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><div><b>Showroom in Al Quoz 3</b><span>Open till 10 PM</span></div></div>
+    <div class="rv"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 5-3.4 8.2-7 10-3.6-1.8-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg><div><b>All under one roof</b><span>Wrap, PPF, ceramic &amp; detailing</span></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap head rv" style="text-align:center;justify-items:center">
+    <span class="slash"><span>@dbiwrap</span></span>
+    <h2>Latest <span class="gold-text">drops.</span></h2>
+    <p>Follow @dbiwrap for every car that rolls out of the showroom.</p>
+  </div>
+  <div class="ig">
+    <a href="https://www.instagram.com/dbiwrap/" target="_blank" rel="noopener"><img src="../media/sq-08.jpg" alt="DBI work on Instagram" loading="lazy"></a>
+    <a href="https://www.instagram.com/dbiwrap/" target="_blank" rel="noopener"><img src="../media/sq-12.jpg" alt="DBI work on Instagram" loading="lazy"></a>
+    <a href="https://www.instagram.com/dbiwrap/" target="_blank" rel="noopener"><img src="../media/sq-15.jpg" alt="DBI work on Instagram" loading="lazy"></a>
+    <a href="https://www.instagram.com/dbiwrap/" target="_blank" rel="noopener"><img src="../media/sq-d22.jpg" alt="DBI work on Instagram" loading="lazy"></a>
+    <a href="https://www.instagram.com/dbiwrap/" target="_blank" rel="noopener"><img src="../media/sq-13.jpg" alt="DBI work on Instagram" loading="lazy"></a>
+    <a href="https://www.instagram.com/dbiwrap/" target="_blank" rel="noopener"><img src="../media/sq-11.jpg" alt="DBI work on Instagram" loading="lazy"></a>
+    <a href="https://www.instagram.com/dbiwrap/" target="_blank" rel="noopener"><img src="../media/sq-h2.jpg" alt="DBI work on Instagram" loading="lazy"></a>
+    <a href="https://www.instagram.com/dbiwrap/" target="_blank" rel="noopener"><img src="../media/sq-h11.jpg" alt="DBI work on Instagram" loading="lazy"></a>
+    <a href="https://www.instagram.com/dbiwrap/" target="_blank" rel="noopener"><img src="../media/sq-h14.jpg" alt="DBI work on Instagram" loading="lazy"></a>
+    <a href="https://www.instagram.com/dbiwrap/" target="_blank" rel="noopener"><img src="../media/sq-d19.jpg" alt="DBI work on Instagram" loading="lazy"></a>
+    <a href="https://www.instagram.com/dbiwrap/" target="_blank" rel="noopener"><img src="../media/sq-10.jpg" alt="DBI work on Instagram" loading="lazy"></a>
+    <a href="https://www.instagram.com/dbiwrap/" target="_blank" rel="noopener"><img src="../media/sq-14.jpg" alt="DBI work on Instagram" loading="lazy"></a>
+  </div>
+</section>
+
+<section class="wrap" id="visit">
+  <div class="head rv">
+    <span class="slash"><span>Visit us</span></span>
+    <h2>Pull into <span class="gold-text">the garage.</span></h2>
+    <p class="ar" lang="ar">زورونا في معرضنا في القوز 3</p>
+  </div>
+  <div class="visit rv">
+    <div class="info">
+      <h3>DBI Motor Wrapping</h3>
+      <div class="line"><small>Address</small><span>Al Qouz Third, Al Quoz 3, Dubai, UAE</span></div>
+      <div class="line"><small>Hours</small><span>Open till 10 PM · message us on WhatsApp to confirm</span></div>
+      <div class="line"><small>Phone</small><a href="tel:+971568555606">+971 56 855 5606</a></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><a class="btn btn-gold" href="https://maps.app.goo.gl/4cf33jhMH6hhymZN9" target="_blank" rel="noopener">Directions</a><a class="btn btn-dark" href="https://wa.me/971568555606" target="_blank" rel="noopener">WhatsApp</a></div>
+    </div>
+    <iframe title="DBI Motor Wrapping on Google Maps" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+      src="https://maps.google.com/maps?q=Dbi%20Motors%20Wrapping%2C%20Al%20Qouz%20Third%2C%20Al%20Quoz%2C%20Dubai&amp;ll=25.1613125%2C55.2343125&amp;t=m&amp;z=15&amp;output=embed&amp;iwloc=near"></iframe>
+  </div>
+</section>
+
+<footer>
+  <img src="../media/dbi-logo.png" alt="DBI Motor Wrapping" width="1019" height="315">
+  <span class="big">Wrap it. Own it. <span class="gold-text">Show it.</span></span>
+  <nav><a href="#services">Services</a><a href="#detailing">Detailing</a><a href="#garage">Garage</a><a href="#visit">Visit</a><a href="https://www.instagram.com/dbiwrap/" target="_blank" rel="noopener">Instagram</a></nav>
+  <span>© <span data-year>2026</span> DBI Motor Wrapping · Al Quoz 3, Dubai · <a href="https://knightsystems.ae" target="_blank" rel="noopener">Built &amp; Powered By Knight Systems</a></span>
+</footer>
+
+<a class="wa-fab" href="https://wa.me/971568555606?text=Hi%20DBI" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16 3C9 3 3.4 8.6 3.4 15.6c0 2.4.7 4.7 1.9 6.7L3 29l6.9-2.2c1.9 1 4 1.6 6.1 1.6 7 0 12.6-5.6 12.6-12.6S23 3 16 3zm0 23c-1.9 0-3.8-.5-5.4-1.5l-.4-.2-4.1 1.3 1.3-4-.3-.4a10.3 10.3 0 0 1-1.6-5.6C5.5 9.8 10.2 5.2 16 5.2s10.5 4.7 10.5 10.4S21.8 26 16 26zm5.8-7.8c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.6-1.6-1-.9-1.6-1.9-1.8-2.2-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.3-.6.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.8s1.2 3.2 1.4 3.5c.2.2 2.4 3.6 5.7 5 .8.3 1.4.5 1.9.7.8.3 1.5.2 2.1.1.6-.1 1.9-.8 2.2-1.5.3-.8.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"/></svg>
+  <span>Book on WhatsApp</span>
+</a>
+</body>
+</html>
