@@ -18,7 +18,7 @@
   header img{width:min(240px,60vw);height:auto}
   header p{margin:0;color:#9C9EA2;max-width:52ch}
   .label{font:400 10px/1 Michroma,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:#E7B52A}
-  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:1200px;margin:0 auto}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;max-width:1000px;margin:0 auto}
   a.card{display:grid;gap:14px;text-decoration:none;color:inherit;border:1px solid var(--line);border-radius:16px;padding:14px;background:#141518;transition:transform .25s,border-color .25s}
   a.card:hover{transform:translateY(-4px);border-color:#E7B52A}
   .sw{aspect-ratio:4/3;border-radius:10px;overflow:hidden;position:relative}
@@ -27,20 +27,21 @@
   a.card h2{margin:0;font:600 20px/1.2 Manrope,sans-serif}
   a.card p{margin:0;color:#9C9EA2;font-size:14px}
   .go{font-weight:600;background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-  .night .sw{background:#0B0C0E}.day .sw{background:#C9CACB}.launch .sw{background:#000}
+  .service .sw{background:#E7B52A}.night .sw{background:#0B0C0E}.day .sw{background:#C9CACB}.launch .sw{background:#000}
   @media (max-width:860px){.grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <header>
   <img src="media/dbi-logo.png" alt="DBI Motor Wrapping" width="1019" height="315">
-  <span class="label">Digital Garage · 3 styles</span>
-  <p>Same showroom, same cars, same shutter opening. Three different ways to present DBI Motor Wrapping. Open each one on your phone too.</p>
+  <span class="label">Digital Garage · 4 styles</span>
+  <p>Same showroom, same cars, same shutter opening. Four different ways to present DBI Motor Wrapping. Open each one on your phone too.</p>
 </header>
 <div class="grid">
   <a class="card night" href="night/"><div class="sw"><img src="media/ppf-1.jpg" alt=""><i>01</i></div><h2>Showroom Night</h2><p>Dark and cinematic. The lightbox is the only light, services roll in like cars into bays.</p><span class="go">Open Showroom Night →</span></a>
   <a class="card day" href="daylight/"><div class="sw"><img src="media/sq-09.jpg" alt=""><i>02</i></div><h2>Workshop Daylight</h2><p>Lights on. Concrete greys, the floor-tile grid as the page grid, technical and precise.</p><span class="go">Open Workshop Daylight →</span></a>
   <a class="card launch" href="launch/"><div class="sw"><img src="media/sq-h11.jpg" alt=""><i>03</i></div><h2>Launch Night</h2><p>Bold and loud like the @dbiwrap Instagram. Big italic type, English and Arabic.</p><span class="go">Open Launch Night →</span></a>
+  <a class="card service" href="service/"><div class="sw"><img src="media/ppf-2.jpg" alt=""><i>04</i></div><h2>Service Centre</h2><p>A classic auto-service layout: framed hero slider, service icon band, about section and service cards, in DBI gold and black.</p><span class="go">Open Service Centre →</span></a>
 </div>
 </body>
 </html>

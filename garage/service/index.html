@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en" data-media="../media/">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>DBI Motor Wrapping | Car Wrapping &amp; PPF in Dubai</title>
+<meta name="description" content="Car wrapping, full body matte PPF, windshield protection, ceramic coating and deep detailing at DBI Motor Wrapping, Al Quoz 3, Dubai. Rated 5.0 on Google.">
+<meta name="theme-color" content="#E7B52A">
+<link rel="icon" href="../media/favicon-192x192.png">
+<meta property="og:image" content="../media/og-dbi.jpg">
+<link rel="preload" as="image" href="../media/shutter-wide.webp" media="(orientation: landscape)">
+<link rel="preload" as="image" href="../media/shutter-tall.webp" media="(orientation: portrait)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../core/garage.css">
+<style>
+  /* Service Centre: a classic auto-service layout (framed hero slider, icon band, about + car cut-out, service cards)
+     in DBI colours: gold where the template uses orange, garage black where it uses navy. */
+  :root{--g:#E7B52A;--g-dk:#C9971C;--ink:#0E0F11;--ink-2:#16171b;--ink-3:#1f2025;--text:#1b1c1f;--muted:#6c6e73;--paper:#fff;--soft:#F2F2F3;
+    --cond:"Barlow Condensed","Arial Narrow",Impact,sans-serif;--body:Barlow,system-ui,sans-serif;--max:1180px;--pad:clamp(16px,4vw,40px)}
+  body{background:var(--paper);color:var(--text);font:400 16px/1.7 var(--body)}
+  h1,h2,h3,h4{font-family:var(--cond);font-weight:700;text-transform:uppercase;line-height:1.02;margin:0;letter-spacing:.005em;text-wrap:balance}
+  p{margin:0}
+  .box{max-width:var(--max);margin-inline:auto;padding-inline:var(--pad)}
+  .kick{font:600 12px/1 var(--cond);letter-spacing:.24em;text-transform:uppercase;color:var(--g)}
+  .tag{display:inline-block;background:var(--g);color:#111;font:700 11px/1 var(--cond);letter-spacing:.3em;text-transform:uppercase;padding:7px 12px}
+  .btn{display:inline-flex;align-items:center;gap:8px;font:700 12px/1 var(--cond);letter-spacing:.14em;text-transform:uppercase;text-decoration:none;padding:16px 26px;border:2px solid transparent;transition:background .2s,color .2s,border-color .2s}
+  .btn-g{background:var(--g);color:#111}
+  .btn-g:hover{background:var(--ink);color:#fff}
+  .btn-o{border-color:var(--ink);color:var(--ink)}
+  .btn-o:hover{background:var(--ink);color:#fff}
+  .btn-ink{background:var(--ink);color:#fff}
+  .btn-ink:hover{background:var(--g);color:#111}
+
+  /* gold top zone: info bar + header */
+  .topzone{background:var(--g)}
+  .info{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:calc(10px + env(safe-area-inset-top,0px)) 0 10px;font:600 11px/1.3 var(--cond);letter-spacing:.06em;text-transform:uppercase;color:#1a1a1a;border-bottom:1px solid rgba(0,0,0,.12)}
+  .info a{color:#111}
+  .info .r{display:flex;gap:26px}
+  .info svg{width:14px;height:14px;vertical-align:-2px;margin-right:6px}
+  @media (max-width:760px){.info .r span:last-child,.info .l{display:none}.info{justify-content:center}}
+  .hdr{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px 0}
+  .hdr .logo{display:flex;align-items:center;background:var(--ink);padding:9px 14px;border-radius:4px}
+  .hdr .logo img{height:30px;width:auto}
+  .hdr nav{display:flex;gap:30px}
+  .hdr nav a{font:700 13px/1 var(--cond);letter-spacing:.12em;text-transform:uppercase;text-decoration:none;color:#111}
+  .hdr nav a:hover{color:#fff}
+  .hdr .quote{font:700 12px/1 var(--cond);letter-spacing:.16em;text-transform:uppercase;text-decoration:none;color:#111;border:2px solid #111;padding:13px 20px}
+  .hdr .quote:hover{background:#111;color:var(--g)}
+  @media (max-width:900px){.hdr nav{display:none}}
+
+  /* hero: framed slider straddling gold and black */
+  .hero-wrap{background:linear-gradient(var(--g) 0 70%,var(--ink) 70%);position:relative}
+  .social{position:absolute;left:14px;top:40px;display:flex;flex-direction:column;gap:22px;writing-mode:vertical-rl;transform:rotate(180deg)}
+  .social a{font:700 10px/1 var(--cond);letter-spacing:.22em;text-transform:uppercase;text-decoration:none;color:#111}
+  @media (max-width:1300px){.social{display:none}}
+  .slider{position:relative;background:linear-gradient(115deg,#fafafa 0%,#ececed 55%,#dcdcde 100%);min-height:clamp(440px,52vw,560px);overflow:hidden}
+  .slide{position:absolute;inset:0;display:grid;grid-template-columns:1.15fr 1fr;align-items:center;opacity:0;visibility:hidden;transition:opacity .8s,visibility .8s}
+  .slide.on{opacity:1;visibility:visible}
+  .slide .car{position:relative;height:100%;display:grid;align-items:end;padding:0 0 6% 3%}
+  .slide .car::before{content:"";position:absolute;left:8%;right:4%;bottom:8%;height:10%;background:radial-gradient(closest-side,rgba(0,0,0,.28),transparent);filter:blur(6px)}
+  .slide .car img{position:relative;width:118%;max-width:none;margin-left:-8%;transform:translateX(-30px);opacity:0;transition:transform 1s cubic-bezier(.2,.7,.2,1) .15s,opacity .8s .15s}
+  .slide.on .car img{transform:none;opacity:1}
+  .slide .txt{padding:40px clamp(20px,5vw,64px) 40px 0;display:grid;gap:18px;justify-items:start}
+  .slide h1{font-size:clamp(42px,6vw,76px);font-weight:800;color:var(--ink)}
+  .slide p{color:#4a4c50;max-width:40ch}
+  .slide .btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
+  .dots{position:absolute;right:22px;bottom:18px;display:flex;gap:8px;z-index:3}
+  .dots button{width:12px;height:12px;border:0;background:#b9babd;cursor:pointer;padding:0}
+  .dots button[aria-current="true"]{background:var(--g)}
+  @media (max-width:760px){.slider{min-height:640px}.slide{grid-template-columns:1fr;grid-template-rows:auto 1fr;align-content:start}
+    .slide .car{height:auto;padding:24px 0 0}.slide .car img{width:108%;margin-left:-4%}.slide .txt{padding:6px 20px 48px}}
+
+  /* icon band */
+  .band{background:var(--ink);color:#fff;padding-bottom:0}
+  .icons{display:grid;grid-template-columns:repeat(5,1fr);border-left:1px solid rgba(255,255,255,.1)}
+  .icons a{display:grid;justify-items:center;gap:10px;text-align:center;text-decoration:none;color:#fff;padding:40px 12px 44px;border-right:1px solid rgba(255,255,255,.1);transition:background .25s}
+  .icons a:hover{background:var(--ink-3)}
+  .icons svg{width:52px;height:52px;fill:none;stroke:#fff;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round;transition:stroke .25s}
+  .icons a:hover svg{stroke:var(--g)}
+  .icons small{font:600 11px/1 var(--cond);letter-spacing:.14em;text-transform:uppercase;color:#a6a8ac;margin-top:6px}
+  .icons b{font:700 19px/1.1 var(--cond);text-transform:uppercase}
+  @media (max-width:900px){.icons{grid-template-columns:repeat(2,1fr)}.icons a:last-child{grid-column:1/-1}}
+
+  /* about */
+  .about{position:relative;padding:clamp(72px,9vw,120px) 0 clamp(96px,10vw,140px);overflow-x:clip}
+  .about::before{content:"";position:absolute;left:54%;right:16%;top:0;bottom:0;background:var(--soft);z-index:-1}
+  .about .grid{display:grid;grid-template-columns:1fr 1.25fr;gap:40px;align-items:center}
+  .about h2{font-size:clamp(34px,4vw,52px);color:var(--ink);margin:12px 0 18px}
+  .about ul{list-style:none;margin:28px 0 34px;padding:0 0 0 22px;border-left:2px solid var(--g);display:grid;gap:12px}
+  .about li{display:flex;gap:12px;align-items:flex-start;font-size:15px}
+  .about li::before{content:"";flex:none;width:9px;height:9px;background:var(--g);margin-top:8px}
+  .about .pic{position:relative}
+  .about .ghost{position:absolute;left:10%;top:6%;font:800 clamp(64px,9vw,120px)/1 var(--cond);text-transform:uppercase;color:#fff;letter-spacing:.02em;z-index:0;pointer-events:none}
+  .about .pic img.car{position:relative;z-index:1;width:112%;max-width:none;margin-top:60px;filter:drop-shadow(0 30px 24px rgba(0,0,0,.25))}
+  .watch{position:absolute;right:0;top:0;z-index:2;display:flex;align-items:center;gap:12px;background:none;border:0;cursor:pointer;padding:0}
+  .watch span{writing-mode:vertical-rl;transform:rotate(180deg);font:700 11px/1 var(--cond);letter-spacing:.2em;text-transform:uppercase;color:var(--ink)}
+  .watch i{position:relative;display:block;width:160px;height:100px;background:#000 center/cover no-repeat}
+  .watch i::after{content:"";position:absolute;left:50%;top:50%;width:40px;height:40px;margin:-20px 0 0 -20px;background:var(--g) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 7l8 5-8 5z' fill='%23111'/%3E%3C/svg%3E") center/22px no-repeat}
+  .callbox{position:absolute;left:max(var(--pad),calc((100vw - var(--max))/2));bottom:-46px;z-index:5;background:var(--g);color:#111;padding:20px 34px;box-shadow:0 20px 40px rgba(0,0,0,.18);text-decoration:none;display:grid;gap:4px}
+  .callbox small{font:600 12px/1 var(--cond);letter-spacing:.14em;text-transform:uppercase;display:flex;align-items:center;gap:10px}
+  .callbox small::before{content:"";width:22px;height:2px;background:#111}
+  .callbox b{font:800 28px/1 var(--cond)}
+  @media (max-width:900px){.about::before{left:0;right:0;top:auto;height:40%}.about .grid{grid-template-columns:1fr}.about .pic img.car{width:100%;margin-top:120px}
+    .watch i{width:130px;height:82px}.callbox{position:relative;left:auto;bottom:auto;margin:40px var(--pad) 0;display:inline-grid}}
+
+  /* services (dark) */
+  .svc{background:var(--ink);color:#fff;padding:clamp(100px,11vw,140px) 0 clamp(72px,9vw,110px)}
+  .svc .head{text-align:center;display:grid;gap:12px;margin-bottom:44px}
+  .svc h2{font-size:clamp(32px,4vw,48px)}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+  .card{background:var(--ink-2);display:grid;grid-template-rows:auto 1fr;overflow:hidden}
+  .card .ph{aspect-ratio:4/3;overflow:hidden;position:relative}
+  .card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+  .card:hover .ph img{transform:scale(1.06)}
+  .card .num{position:absolute;right:0;bottom:0;background:var(--g);color:#111;font:800 18px/1 var(--cond);padding:12px 14px}
+  .card .in{padding:24px 26px 28px;display:grid;gap:12px;align-content:start}
+  .card h3{font-size:26px}
+  .card p{color:#b0b2b6;font-size:15px}
+  .card a{justify-self:start;font:700 12px/1 var(--cond);letter-spacing:.16em;text-transform:uppercase;color:var(--g);text-decoration:none;margin-top:6px}
+  .card a:hover{color:#fff}
+  @media (max-width:900px){.cards{grid-template-columns:1fr 1fr}}
+  @media (max-width:600px){.cards{grid-template-columns:1fr}}
+
+  /* counters */
+  .counters{background:var(--g)}
+  .counters .box{display:grid;grid-template-columns:repeat(4,1fr)}
+  .counters div div{padding:40px 16px;text-align:center;border-right:1px solid rgba(0,0,0,.12)}
+  .counters div div:last-child{border-right:0}
+  .counters b{display:block;font:800 clamp(40px,5vw,60px)/1 var(--cond);color:#111}
+  .counters span{font:600 13px/1.3 var(--cond);letter-spacing:.14em;text-transform:uppercase;color:#2a2a2a}
+  @media (max-width:760px){.counters .box{grid-template-columns:1fr 1fr}.counters div div:nth-child(2){border-right:0}}
+
+  /* process */
+  .process{padding:clamp(72px,9vw,120px) 0}
+  .process .head{text-align:center;display:grid;gap:12px;margin-bottom:48px}
+  .process h2{font-size:clamp(32px,4vw,48px);color:var(--ink)}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+  .steps div{position:relative;padding:36px 30px;border:1px solid #e3e3e5;background:#fff;display:grid;gap:12px;transition:border-color .25s,transform .25s}
+  .steps div:hover{border-color:var(--g);transform:translateY(-4px)}
+  .steps .n{position:absolute;right:22px;top:14px;font:800 64px/1 var(--cond);color:#f0f0f1}
+  .steps h3{position:relative;font-size:26px;color:var(--ink)}
+  .steps p{position:relative;color:var(--muted);font-size:15px}
+  .steps i{position:relative;display:grid;place-items:center;width:58px;height:58px;background:var(--g)}
+  .steps i svg{width:28px;height:28px;fill:none;stroke:#111;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  @media (max-width:900px){.steps{grid-template-columns:1fr}}
+
+  /* garage viewer + detailing */
+  .garage{background:var(--soft);padding:clamp(72px,9vw,110px) 0}
+  .garage .head{text-align:center;display:grid;gap:12px;margin-bottom:32px}
+  .garage h2{font-size:clamp(32px,4vw,48px);color:var(--ink)}
+  .garage .stage{box-shadow:0 30px 60px rgba(0,0,0,.15)}
+  .garage-ui{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-top:18px}
+  .tabs{display:flex;flex-wrap:wrap;gap:8px}
+  .tabs button{font:700 13px/1 var(--cond);letter-spacing:.12em;text-transform:uppercase;background:#fff;color:var(--ink);border:1px solid #d8d8da;padding:13px 18px;cursor:pointer}
+  .tabs button[aria-pressed="true"]{background:var(--g);border-color:var(--g)}
+  [data-angle-label]{color:var(--muted);font-size:14px}
+  .arrows{display:flex;gap:6px}
+  .arrows button{width:46px;height:46px;border:0;background:var(--ink);color:#fff;display:grid;place-items:center;cursor:pointer}
+  .arrows button:hover{background:var(--g);color:#111}
+  .arrows svg{width:18px;height:18px}
+
+  .projects{padding:clamp(72px,9vw,110px) 0}
+  .projects .head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:18px;margin-bottom:34px}
+  .projects h2{font-size:clamp(32px,4vw,48px);color:var(--ink);margin-top:10px}
+  .pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  .pgrid a{position:relative;display:block;aspect-ratio:1;overflow:hidden}
+  .pgrid a:first-child{grid-column:span 2;grid-row:span 2}
+  .pgrid img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+  .pgrid a::after{content:"@dbiwrap";position:absolute;left:0;right:0;bottom:0;padding:12px 14px;background:linear-gradient(transparent,rgba(0,0,0,.75));color:#fff;font:700 13px/1 var(--cond);letter-spacing:.14em;opacity:0;transition:opacity .3s}
+  .pgrid a:hover img{transform:scale(1.06)}
+  .pgrid a:hover::after{opacity:1}
+  @media (max-width:760px){.pgrid{grid-template-columns:repeat(2,1fr)}}
+
+  .cta{background:var(--ink) url("../media/ppf-2.jpg") center/cover;position:relative;color:#fff}
+  .cta::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(14,15,17,.95) 35%,rgba(14,15,17,.55))}
+  .cta .box{position:relative;display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between;padding-block:clamp(56px,7vw,90px)}
+  .cta h2{font-size:clamp(32px,4.4vw,56px)}
+  .cta h2 span{color:var(--g)}
+
+  .visit{padding:clamp(72px,9vw,110px) 0}
+  .visit .grid{display:grid;grid-template-columns:1fr 1.3fr;box-shadow:0 20px 60px rgba(0,0,0,.08)}
+  .visit .info{background:var(--ink);color:#fff;padding:clamp(28px,4vw,48px);display:grid;gap:22px;align-content:start}
+  .visit .info h2{font-size:clamp(30px,3.4vw,42px)}
+  .visit .row{display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:center}
+  .visit .row i{display:grid;place-items:center;width:44px;height:44px;background:var(--g)}
+  .visit .row svg{width:20px;height:20px;fill:none;stroke:#111;stroke-width:1.8}
+  .visit .row small{display:block;font:600 11px/1.2 var(--cond);letter-spacing:.16em;text-transform:uppercase;color:#9d9fa3}
+  .visit .row a{color:#fff;text-decoration:none}
+  .visit iframe{width:100%;height:100%;min-height:420px;border:0;filter:grayscale(.85)}
+  @media (max-width:900px){.visit .grid{grid-template-columns:1fr}.visit iframe{min-height:300px}}
+
+  footer{background:var(--ink);color:#a3a5a9;font-size:15px}
+  footer .top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:34px;padding-block:64px 44px}
+  footer img{height:36px;width:auto;margin-bottom:16px}
+  footer h4{color:#fff;font-size:20px;margin-bottom:16px;position:relative;padding-bottom:12px}
+  footer h4::after{content:"";position:absolute;left:0;bottom:0;width:36px;height:3px;background:var(--g)}
+  footer ul{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+  footer a{text-decoration:none}
+  footer a:hover{color:var(--g)}
+  footer .bot{border-top:1px solid rgba(255,255,255,.08);padding-block:18px calc(90px + env(safe-area-inset-bottom,0px));display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;font-size:13px}
+  @media (max-width:900px){footer .top{grid-template-columns:1fr 1fr}footer .top > :first-child{grid-column:1/-1}}
+
+  dialog.vid{padding:0;border:0;background:#000;max-width:min(420px,92vw);width:100%}
+  dialog.vid::backdrop{background:rgba(0,0,0,.85)}
+  dialog.vid video{width:100%;display:block}
+  dialog.vid button{position:absolute;right:8px;top:8px;z-index:2;width:38px;height:38px;border:0;background:var(--g);font:700 18px/1 var(--body);cursor:pointer}
+</style>
+</head>
+<body>
+<script src="../core/garage.js"></script>
+
+<div class="topzone">
+  <div class="box info">
+    <span class="l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16v11H8l-4 4z"/></svg>Need a quote? <a href="https://wa.me/971568555606?text=Hi%20DBI%2C%20I%27d%20like%20a%20quote" target="_blank" rel="noopener">Message us on WhatsApp</a></span>
+    <span class="r"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>Call: <a href="tel:+971568555606">+971 56 855 5606</a></span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Al Quoz 3, Dubai · open till 10 PM</span></span>
+  </div>
+  <header class="box hdr">
+    <a class="logo" href="#home" aria-label="DBI Motor Wrapping home"><img src="../media/dbi-logo.png" alt="DBI Motor Wrapping" width="1019" height="315"></a>
+    <nav aria-label="Main"><a href="#home">Home</a><a href="#about">About</a><a href="#services">Services</a><a href="#garage">Garage</a><a href="#projects">Projects</a><a href="#visit">Contact</a></nav>
+    <a class="quote" href="https://wa.me/971568555606?text=Hi%20DBI%2C%20I%27d%20like%20a%20quote" target="_blank" rel="noopener">Get a quote</a>
+  </header>
+</div>
+
+<section class="hero-wrap" id="home">
+  <nav class="social" aria-label="Social"><a href="https://www.instagram.com/dbiwrap/" target="_blank" rel="noopener">Instagram</a><a href="https://wa.me/971568555606" target="_blank" rel="noopener">WhatsApp</a><a href="https://maps.app.goo.gl/4cf33jhMH6hhymZN9" target="_blank" rel="noopener">Google Maps</a></nav>
+  <div class="box">
+    <div class="slider" id="slider" aria-roledescription="carousel">
+      <div class="slide on" aria-label="1 of 3">
+        <div class="car"><img src="../media/ang-p1.webp" alt="Matte black Ferrari Purosangue with full body matte PPF" width="1800" height="900"></div>
+        <div class="txt"><span class="tag">Full body matte PPF</span><h1>Wrap it.<br>Own it. Show it.</h1><p>DBI Motor Wrapping is a vehicle wrapping showroom in Al Quoz 3, Dubai, rated 5.0 on Google from 21 reviews.</p>
+          <div class="btns"><a class="btn btn-o" href="#services">Our services</a><a class="btn btn-g" href="https://wa.me/971568555606?text=Hi%20DBI%2C%20I%27d%20like%20to%20book" target="_blank" rel="noopener">Book on WhatsApp</a></div></div>
+      </div>
+      <div class="slide" aria-label="2 of 3">
+        <div class="car"><img src="../media/ang-a1.webp" alt="Red Lamborghini Aventador Roadster" width="1800" height="900" loading="lazy"></div>
+        <div class="txt"><span class="tag">Vehicle wrapping</span><h1>New colour.<br>Original paint.</h1><p>A wrap changes the colour or finish of your car, from gloss to satin to matte, without repainting it.</p>
+          <div class="btns"><a class="btn btn-o" href="#services">Our services</a><a class="btn btn-g" href="https://wa.me/971568555606?text=Hi%20DBI%2C%20I%27m%20interested%20in%20Vehicle%20Wrapping" target="_blank" rel="noopener">Book on WhatsApp</a></div></div>
+      </div>
+      <div class="slide" aria-label="3 of 3">
+        <div class="car"><img src="../media/ang-c1.webp" alt="Tesla Cybertruck" width="1800" height="900" loading="lazy"></div>
+        <div class="txt"><span class="tag">Protection &amp; detailing</span><h1>Protected.<br>Ready to show.</h1><p>Windshield film, interior and rims ceramic coating, and deep detailing, all under one roof.</p>
+          <div class="btns"><a class="btn btn-o" href="#services">Our services</a><a class="btn btn-g" href="https://wa.me/971568555606?text=Hi%20DBI%2C%20I%27d%20like%20to%20book" target="_blank" rel="noopener">Book on WhatsApp</a></div></div>
+      </div>
+      <div class="dots" role="tablist" aria-label="Choose slide"><button type="button" aria-label="Slide 1" aria-current="true"></button><button type="button" aria-label="Slide 2"></button><button type="button" aria-label="Slide 3"></button></div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="box">
+    <div class="icons">
+      <a href="#services"><svg viewBox="0 0 48 48"><path d="M24 5l15 6v10c0 11-7 17-15 21C16 38 9 32 9 21V11z"/><path d="M17 24l5 5 9-10"/></svg><small>Paint protection</small><b>Full Body Matte PPF</b></a>
+      <a href="#services"><svg viewBox="0 0 48 48"><path d="M6 30l4-10a4 4 0 0 1 3.7-2.5h20.6A4 4 0 0 1 38 20l4 10v7h-4M10 37H6v-7M16 37h16"/><circle cx="13" cy="37" r="3.5"/><circle cx="35" cy="37" r="3.5"/><path d="M30 6l10 10-6 6-10-10z"/><path d="M26 12l-3 3"/></svg><small>Colour change</small><b>Vehicle Wrapping</b></a>
+      <a href="#services"><svg viewBox="0 0 48 48"><path d="M6 32c4-12 10-18 18-18s14 6 18 18z"/><path d="M14 26l4 4M22 20l3 3M31 23l3 3"/><path d="M6 38h36"/></svg><small>Glass</small><b>Windshield Protection</b></a>
+      <a href="#services"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="16"/><circle cx="24" cy="24" r="5"/><path d="M24 8v11M24 29v11M8 24h11M29 24h11"/><path d="M38 6l1.5 3 3 1.5-3 1.5L38 15l-1.5-3-3-1.5 3-1.5z"/></svg><small>Interior &amp; rims</small><b>Ceramic Coating</b></a>
+      <a href="#detailing"><svg viewBox="0 0 48 48"><path d="M10 38l14-14"/><rect x="22" y="10" width="16" height="16" rx="8"/><path d="M24 6v4M36 6v4M6 22h4M12 12l3 3"/></svg><small>Inside &amp; out</small><b>Deep Detailing</b></a>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="box grid">
+    <div class="rv">
+      <span class="kick">Who we are</span>
+      <h2>Vehicle wrapping &amp; protection in Dubai</h2>
+      <p style="color:var(--muted)">DBI Motor Wrapping is a vehicle wrapping showroom in Al Quoz 3, Dubai. Supercars, SUVs and daily drivers all come through the same showroom floor. We change how your car looks and keep it protected.</p>
+      <ul>
+        <li>Vehicle wrapping in gloss, satin or matte</li>
+        <li>Full body matte PPF against chips and scratches</li>
+        <li>Windshield protection film</li>
+        <li>Interior and rims ceramic coating</li>
+        <li>Interior &amp; exterior deep detailing</li>
+      </ul>
+      <a class="btn btn-ink" href="https://wa.me/971568555606?text=Hi%20DBI%2C%20I%27d%20like%20to%20book" target="_blank" rel="noopener">Book on WhatsApp</a>
+    </div>
+    <div class="pic rv">
+      <span class="ghost" aria-hidden="true">About us</span>
+      <button class="watch" type="button" id="watchBtn" aria-label="Watch the detailing video"><span>Watch video</span><i style="background-image:url(../media/detailing-poster.jpg)"></i></button>
+      <img class="car" src="../media/ang-p3.webp" alt="Matte black Ferrari Purosangue with the doors open" width="1800" height="900" loading="lazy">
+    </div>
+  </div>
+  <a class="callbox" href="tel:+971568555606"><small>Contact for services</small><b>+971 56 855 5606</b></a>
+</section>
+
+<section class="svc" id="services">
+  <div class="box">
+    <div class="head rv"><span class="kick">Our services</span><h2>Wrapping, protection &amp; detailing</h2></div>
+    <div class="cards">
+      <article class="card rv"><div class="ph"><img src="../media/ppf-1.jpg" alt="" loading="lazy"><span class="num">01</span></div><div class="in"><h3>Full Body Matte PPF</h3><p>A matte paint protection film over the whole car: the matte look and a protective layer against stone chips, scratches and everyday wear.</p><a href="https://wa.me/971568555606?text=Hi%20DBI%2C%20I%27m%20interested%20in%20Full%20Body%20Matte%20PPF" target="_blank" rel="noopener">Book now →</a></div></article>
+      <article class="card rv"><div class="ph"><img src="../media/look-1.jpg" alt="" loading="lazy"><span class="num">02</span></div><div class="in"><h3>Vehicle Wrapping</h3><p>Change the colour or finish without touching the paint. The factory paint stays protected and the car can go back to stock later.</p><a href="https://wa.me/971568555606?text=Hi%20DBI%2C%20I%27m%20interested%20in%20Vehicle%20Wrapping" target="_blank" rel="noopener">Book now →</a></div></article>
+      <article class="card rv"><div class="ph"><img src="../media/tint-2.jpg" alt="" loading="lazy"><span class="num">03</span></div><div class="in"><h3>Windshield Protection</h3><p>A clear film on the windshield that helps guard it against stone chips and road debris, without changing your view of the road.</p><a href="https://wa.me/971568555606?text=Hi%20DBI%2C%20I%27m%20interested%20in%20Windshield%20Protection" target="_blank" rel="noopener">Book now →</a></div></article>
+      <article class="card rv"><div class="ph"><img src="../media/ceramic-1.jpg" alt="" loading="lazy"><span class="num">04</span></div><div class="in"><h3>Interior Ceramic Coating</h3><p>Protects seats, dashboard and trim from stains and everyday wear, and makes them easier to wipe clean.</p><a href="https://wa.me/971568555606?text=Hi%20DBI%2C%20I%27m%20interested%20in%20Interior%20Ceramic%20Coating" target="_blank" rel="noopener">Book now →</a></div></article>
+      <article class="card rv"><div class="ph"><img src="../media/ceramic-2.jpg" alt="" loading="lazy"><span class="num">05</span></div><div class="in"><h3>Rims Ceramic Coating</h3><p>Brake dust and road grime have a harder time sticking, so the rims wash off faster and stay cleaner for longer.</p><a href="https://wa.me/971568555606?text=Hi%20DBI%2C%20I%27m%20interested%20in%20Rims%20Ceramic%20Coating" target="_blank" rel="noopener">Book now →</a></div></article>
+      <article class="card rv" id="detailing"><div class="ph"><img src="../media/expertise-3.jpg" alt="" loading="lazy"><span class="num">06</span></div><div class="in"><h3>Deep Detailing</h3><p>Machine polishing, engine bay and wheels, seats and dashboard, and every corner by hand, until the car is ready to show.</p><a href="https://wa.me/971568555606?text=Hi%20DBI%2C%20I%27d%20like%20to%20book%20a%20deep%20detailing.%20Car%3A%20" target="_blank" rel="noopener">Book now →</a></div></article>
+    </div>
+  </div>
+</section>
+
+<section class="counters" aria-label="DBI in numbers">
+  <div class="box">
+    <div><b>5.0</b><span>Google rating</span></div>
+    <div><b>21</b><span>Google reviews</span></div>
+    <div><b>6</b><span>Services in-house</span></div>
+    <div><b>10 PM</b><span>Open till</span></div>
+  </div>
+</section>
+
+<section class="process">
+  <div class="box">
+    <div class="head rv"><span class="kick">How it works</span><h2>Book with DBI in three steps</h2></div>
+    <div class="steps">
+      <div class="rv"><span class="n">01</span><i><svg viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/></svg></i><h3>Message us on WhatsApp</h3><p>Send your car model and the service you want. We reply with a price and a time.</p></div>
+      <div class="rv"><span class="n">02</span><i><svg viewBox="0 0 24 24"><path d="M14 4l6 6-9 9H5v-6z"/><path d="M12 6l6 6"/></svg></i><h3>Precision application</h3><p>Your car comes into the showroom and the wrap, film or coating is applied panel by panel.</p></div>
+      <div class="rv"><span class="n">03</span><i><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 5-3.4 8.2-7 10-3.6-1.8-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></i><h3>Final inspection &amp; assurance</h3><p>Every panel is checked under the lightbox before the car goes back to you.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="garage" id="garage">
+  <div class="box">
+    <div class="head rv"><span class="kick">The garage</span><h2>Our cars from every angle</h2><p style="color:var(--muted)">Pick a car, then swipe or tap through the angles.</p></div>
+    <div data-angles='{"p":{"name":"Ferrari Purosangue","shots":["ang-p1.webp","ang-p2.webp","ang-p3.webp","ang-p4.webp"]},"a":{"name":"Lamborghini Aventador Roadster","shots":["ang-a1.webp","ang-a2.webp","ang-a3.webp"]},"c":{"name":"Tesla Cybertruck","shots":["ang-c1.webp","ang-c2.webp","ang-c3.webp"]}}'>
+      <div class="stage"><div class="lightbox"></div><div class="glow"></div><div class="floor"></div><div class="drain"></div><img class="logo-wall" src="../media/dbi-logo.png" alt=""><div class="car"><img src="../media/ang-p1.webp" alt="Ferrari Purosangue" width="1800" height="900"></div></div>
+      <div class="garage-ui">
+        <div class="tabs" role="group" aria-label="Choose a car"><button type="button" data-car="p">Purosangue</button><button type="button" data-car="a">Aventador</button><button type="button" data-car="c">Cybertruck</button></div>
+        <span data-angle-label></span>
+        <div class="arrows">
+          <button type="button" data-step="-1" aria-label="Previous angle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+          <button type="button" data-step="1" aria-label="Next angle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="projects" id="projects">
+  <div class="box">
+    <div class="head rv"><div><span class="kick">Recent projects</span><h2>Fresh off the showroom floor</h2></div><a class="btn btn-o" href="https://www.instagram.com/dbiwrap/" target="_blank" rel="noopener">Follow @dbiwrap</a></div>
+    <div class="pgrid">
+      <a href="https://www.instagram.com/dbiwrap/" target="_blank" rel="noopener"><img src="../media/sq-d19.jpg" alt="DBI project" loading="lazy"></a>
+      <a href="https://www.instagram.com/dbiwrap/" target="_blank" rel="noopener"><img src="../media/sq-08.jpg" alt="DBI project" loading="lazy"></a>
+      <a href="https://www.instagram.com/dbiwrap/" target="_blank" rel="noopener"><img src="../media/sq-12.jpg" alt="DBI project" loading="lazy"></a>
+      <a href="https://www.instagram.com/dbiwrap/" target="_blank" rel="noopener"><img src="../media/sq-15.jpg" alt="DBI project" loading="lazy"></a>
+      <a href="https://www.instagram.com/dbiwrap/" target="_blank" rel="noopener"><img src="../media/sq-h11.jpg" alt="DBI project" loading="lazy"></a>
+      <a href="https://www.instagram.com/dbiwrap/" target="_blank" rel="noopener"><img src="../media/sq-13.jpg" alt="DBI project" loading="lazy"></a>
+      <a href="https://www.instagram.com/dbiwrap/" target="_blank" rel="noopener"><img src="../media/sq-h2.jpg" alt="DBI project" loading="lazy"></a>
+      <a href="https://www.instagram.com/dbiwrap/" target="_blank" rel="noopener"><img src="../media/sq-10.jpg" alt="DBI project" loading="lazy"></a>
+      <a href="https://www.instagram.com/dbiwrap/" target="_blank" rel="noopener"><img src="../media/sq-14.jpg" alt="DBI project" loading="lazy"></a>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="box"><h2>Ready to wrap it<br>and <span>show it?</span></h2><a class="btn btn-g" href="https://wa.me/971568555606?text=Hi%20DBI%2C%20I%27d%20like%20to%20book" target="_blank" rel="noopener">Book on WhatsApp</a></div>
+</section>
+
+<section class="visit" id="visit">
+  <div class="box grid rv">
+    <div class="info">
+      <span class="kick">Visit our showroom</span>
+      <h2>Get in touch with us</h2>
+      <div class="row"><i><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></i><div><small>Address</small>Al Qouz Third, Al Quoz 3, Dubai, UAE</div></div>
+      <div class="row"><i><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></i><div><small>Phone</small><a href="tel:+971568555606">+971 56 855 5606</a></div></div>
+      <div class="row"><i><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></i><div><small>Hours</small>Open till 10 PM · WhatsApp to confirm</div></div>
+      <div class="row"><i><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.5"/></svg></i><div><small>Instagram</small><a href="https://www.instagram.com/dbiwrap/" target="_blank" rel="noopener">@dbiwrap</a></div></div>
+      <a class="btn btn-g" href="https://maps.app.goo.gl/4cf33jhMH6hhymZN9" target="_blank" rel="noopener" style="justify-self:start">Get directions</a>
+    </div>
+    <iframe title="DBI Motor Wrapping on Google Maps" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+      src="https://maps.google.com/maps?q=Dbi%20Motors%20Wrapping%2C%20Al%20Qouz%20Third%2C%20Al%20Quoz%2C%20Dubai&amp;ll=25.1613125%2C55.2343125&amp;t=m&amp;z=15&amp;output=embed&amp;iwloc=near"></iframe>
+  </div>
+</section>
+
+<footer>
+  <div class="box top">
+    <div><img src="../media/dbi-logo.png" alt="DBI Motor Wrapping" width="1019" height="315"><p>Vehicle wrapping, full body matte PPF, windshield protection, ceramic coating and deep detailing at our showroom in Al Quoz 3, Dubai. Wrap It. Own It. Show It.</p></div>
+    <div><h4>Services</h4><ul><li><a href="#services">Full Body Matte PPF</a></li><li><a href="#services">Vehicle Wrapping</a></li><li><a href="#services">Windshield Protection</a></li><li><a href="#services">Ceramic Coating</a></li><li><a href="#services">Deep Detailing</a></li></ul></div>
+    <div><h4>Quick links</h4><ul><li><a href="#about">About</a></li><li><a href="#garage">The Garage</a></li><li><a href="#projects">Projects</a></li><li><a href="#visit">Contact</a></li></ul></div>
+    <div><h4>Contact</h4><ul><li><a href="https://wa.me/971568555606" target="_blank" rel="noopener">WhatsApp</a></li><li><a href="tel:+971568555606">+971 56 855 5606</a></li><li>Al Quoz 3, Dubai</li><li>Open till 10 PM</li></ul></div>
+  </div>
+  <div class="box bot"><span>© <span data-year>2026</span> DBI Motor Wrapping. All rights reserved.</span><a href="https://knightsystems.ae" target="_blank" rel="noopener">Built &amp; Powered By Knight Systems</a></div>
+</footer>
+
+<dialog class="vid" id="vid"><button type="button" aria-label="Close video">×</button><video src="../media/detailing-dbi.mp4" controls playsinline preload="none" poster="../media/detailing-poster.jpg"></video></dialog>
+
+<a class="wa-fab" href="https://wa.me/971568555606?text=Hi%20DBI" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16 3C9 3 3.4 8.6 3.4 15.6c0 2.4.7 4.7 1.9 6.7L3 29l6.9-2.2c1.9 1 4 1.6 6.1 1.6 7 0 12.6-5.6 12.6-12.6S23 3 16 3zm0 23c-1.9 0-3.8-.5-5.4-1.5l-.4-.2-4.1 1.3 1.3-4-.3-.4a10.3 10.3 0 0 1-1.6-5.6C5.5 9.8 10.2 5.2 16 5.2s10.5 4.7 10.5 10.4S21.8 26 16 26zm5.8-7.8c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.6-1.6-1-.9-1.6-1.9-1.8-2.2-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.3-.6.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.8s1.2 3.2 1.4 3.5c.2.2 2.4 3.6 5.7 5 .8.3 1.4.5 1.9.7.8.3 1.5.2 2.1.1.6-.1 1.9-.8 2.2-1.5.3-.8.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"/></svg>
+  <span>Book on WhatsApp</span>
+</a>
+
+<script>
+(function () {
+  // hero slider: auto-advances every 6 s, pauses while hovered, dots to jump
+  var s = document.getElementById('slider'), slides = s.querySelectorAll('.slide'), dots = s.querySelectorAll('.dots button'), i = 0, t;
+  function go(n) { slides[i].classList.remove('on'); dots[i].removeAttribute('aria-current'); i = (n + slides.length) % slides.length; slides[i].classList.add('on'); dots[i].setAttribute('aria-current', 'true'); }
+  function run() { clearInterval(t); if (!matchMedia('(prefers-reduced-motion: reduce)').matches) t = setInterval(function () { go(i + 1); }, 6000); }
+  dots.forEach(function (d, n) { d.addEventListener('click', function () { go(n); run(); }); });
+  s.addEventListener('mouseenter', function () { clearInterval(t); }); s.addEventListener('mouseleave', run);
+  var x0 = null; s.addEventListener('pointerdown', function (e) { x0 = e.clientX; });
+  s.addEventListener('pointerup', function (e) { if (x0 === null) return; var dx = e.clientX - x0; x0 = null; if (Math.abs(dx) > 50) { go(i + (dx < 0 ? 1 : -1)); run(); } });
+  document.addEventListener('garage:open', run, { once: true });
+  // watch-video popup
+  var dlg = document.getElementById('vid'), v = dlg.querySelector('video');
+  document.getElementById('watchBtn').addEventListener('click', function () { if (dlg.showModal) { dlg.showModal(); v.play(); } else location.href = v.src; });
+  dlg.querySelector('button').addEventListener('click', function () { v.pause(); dlg.close(); });
+  dlg.addEventListener('close', function () { v.pause(); });
+})();
+</script>
+</body>
+</html>
