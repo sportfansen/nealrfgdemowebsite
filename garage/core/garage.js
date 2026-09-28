@@ -9,6 +9,14 @@
   var tall = function () { return window.matchMedia && matchMedia('(orientation: portrait)').matches; };
   root.classList.add('js');
 
+  // the host occasionally answers a burst of image requests with a 503: retry each failed image once
+  document.addEventListener('error', function (e) {
+    var el = e.target;
+    if (el.tagName !== 'IMG' || el.dataset.retried) return;
+    el.dataset.retried = '1';
+    setTimeout(function () { el.src = el.src.split('?')[0] + '?r=1'; }, 900);
+  }, true);
+
   function done() {
     root.classList.remove('gate-lock');
     root.classList.add('opened');
